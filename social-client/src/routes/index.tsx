@@ -7,7 +7,7 @@ const Router = [
     path: "/",
     element: <MainLoyout />,
     children: [
-      { path: "/home", element: <Home /> },
+      { path: "/", element: <Home /> },
       { path: "/profile", element: <Profile /> },
     ],
   },

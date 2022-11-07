@@ -1,11 +1,11 @@
-import { Box, Typography } from "@mui/material";
+import { Box } from "@mui/material";
+import { flexMiddle } from "../../assets/commonStyles";
+import Feed from "./components/Feed";
 
 const Home = () => {
   return (
-    <Box
-      sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
-    >
-      <Typography variant="h3">This is Home page</Typography>
+    <Box sx={flexMiddle}>
+      <Feed />
     </Box>
   );
 };
