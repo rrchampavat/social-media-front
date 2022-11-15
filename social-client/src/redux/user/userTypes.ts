@@ -1,5 +1,9 @@
+import { POST } from "../post/postTypes";
 import {
   GET_USER_FAIL,
+  GET_USER_POSTS_FAIL,
+  GET_USER_POSTS_REQUEST,
+  GET_USER_POSTS_SUCCESS,
   GET_USER_REQUEST,
   GET_USER_SUCCESS,
 } from "./userActionTypes";
@@ -20,6 +24,7 @@ export interface USER_STATE {
   user: object;
   users: Array<USER>;
   message: object;
+  posts: POST[];
 }
 
 export interface GET_USER_SUCCESS_PAYLOAD {
@@ -27,7 +32,7 @@ export interface GET_USER_SUCCESS_PAYLOAD {
 }
 
 export interface GET_USER_FAIL_PAYLOAD {
-  error: object;
+  error: any;
 }
 
 export interface GetUserRequest {
@@ -44,4 +49,32 @@ export interface GetUserFail {
   payload: GET_USER_FAIL_PAYLOAD;
 }
 
-export type userActions = GetUserRequest | GetUserSuccess | GetUserFail;
+export interface GET_USER_POSTS_SUCCESS_PAYLOAD {
+  posts: POST[];
+}
+
+export interface GET_USER_POSTS_FAIL_PAYLOAD {
+  error: any;
+}
+
+export interface GetUserPostsRequest {
+  type: typeof GET_USER_POSTS_REQUEST;
+}
+
+export interface GetUserPostsSuccess {
+  type: typeof GET_USER_POSTS_SUCCESS;
+  payload: GET_USER_POSTS_SUCCESS_PAYLOAD;
+}
+
+export interface GetUserPostsFail {
+  type: typeof GET_USER_POSTS_FAIL;
+  payload: GET_USER_POSTS_FAIL_PAYLOAD;
+}
+
+export type userActions =
+  | GetUserRequest
+  | GetUserSuccess
+  | GetUserFail
+  | GetUserPostsRequest
+  | GetUserPostsSuccess
+  | GetUserPostsFail;

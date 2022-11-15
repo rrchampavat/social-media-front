@@ -6,6 +6,7 @@ import LinkIcon from "@mui/icons-material/Link";
 import ReportIcon from "@mui/icons-material/Report";
 import { faker } from "@faker-js/faker";
 import { USER } from "../redux/user/userTypes";
+import { POST } from "../redux/post/postTypes";
 
 export const profileMenu = [
   {
@@ -62,7 +63,7 @@ export const createUsers = () => {
   return users;
 };
 
-interface COMMENT {
+export interface COMMENT {
   commentID: string;
   userName: string;
   userAvatar: string;
@@ -96,19 +97,6 @@ export const randomComments = () => {
   return comments;
 };
 
-interface POST {
-  postID: string;
-  userName: string;
-  image: string;
-  caption: string;
-  comments: COMMENT[];
-  userAvatar: string;
-  likeCount: number;
-  commentsCount: number;
-  isLiked: boolean;
-  location: string;
-}
-
 export const createPost = () => {
   const post: POST = {
     postID: faker.datatype.uuid(),
@@ -128,7 +116,7 @@ export const createPost = () => {
 
 const posts: POST[] = [];
 
-export const createPosts = (count = 5) => {
+export const createPosts = (count: number) => {
   Array.from({ length: count }).forEach(() => {
     posts.push(createPost());
   });

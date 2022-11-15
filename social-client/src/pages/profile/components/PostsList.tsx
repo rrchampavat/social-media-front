@@ -1,19 +1,38 @@
 import { ImageList, ImageListItem, Tab, Tabs } from "@mui/material";
-import { createPosts } from "../../../utils/constants";
+import { SyntheticEvent, useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { POST } from "../../../redux/post/postTypes";
+import { getUserPosts } from "../../../redux/user/userActions";
 import theme from "../../../utils/theme";
 
-const posts = createPosts();
-
 const PostsList = () => {
+  const dispatch = useDispatch();
+  const { posts } = useSelector((state: any) => state.UserReducer);
+
+  const [userPosts, setUserPosts] = useState<Array<POST>>([]);
+  const [activeTab, setActiveTab] = useState<string>("Posts");
+
+  useEffect(() => {
+    setUserPosts(posts);
+    if (!posts?.length) {
+      dispatch(getUserPosts(6));
+    }
+  }, [posts, dispatch]);
+
   return (
     <>
-      <Tabs>
-        <Tab label="Posts" sx={{ color: () => theme.palette.primary.main }} />
-        <Tab label="Saved" sx={{ color: () => theme.palette.primary.main }} />
-        <Tab label="Tagged" sx={{ color: () => theme.palette.primary.main }} />
+      <Tabs
+        onChange={(_e: SyntheticEvent, value) => setActiveTab(value)}
+        textColor={theme.palette.primary.main}
+        indicatorColor="primary"
+        value={activeTab}
+      >
+        <Tab label="Posts" value="Posts" />
+        <Tab label="Tagged" value="Tagged" />
+        <Tab label="Saved" value="Saved" />
       </Tabs>
       <ImageList sx={{ minHeight: "65vh" }} cols={3}>
-        {posts.map(({ postID, image }) => (
+        {userPosts?.map(({ postID, image }) => (
           <ImageListItem key={postID}>
             <img src={image} alt="Post" loading="lazy" />
           </ImageListItem>
