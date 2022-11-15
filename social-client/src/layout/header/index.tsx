@@ -11,15 +11,18 @@ import ChatIcon from "@mui/icons-material/Chat";
 // import MenuIcon from "@mui/icons-material/Menu";
 import CustomBotton from "../../components/CustomBotton";
 import NotificationsIcon from "@mui/icons-material/Notifications";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CustomMenu from "../../components/CustomMenu";
-import { createUser, profileMenu } from "../../utils/constants";
+import { profileMenu } from "../../utils/constants";
 import { useNavigate } from "react-router-dom";
-
-const user = createUser();
+import { useDispatch, useSelector } from "react-redux";
+import { getUser } from "../../redux/user/userActions";
 
 const Header = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const { user } = useSelector((state: any) => state.UserReducer);
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [openProfileMenu, setOpenProfileMenu] = useState<boolean>(false);
@@ -28,6 +31,12 @@ const Header = () => {
     setAnchorEl(event.currentTarget);
     setOpenProfileMenu(true);
   };
+
+  useEffect(() => {
+    if (!user?.userId) {
+      dispatch(getUser());
+    }
+  }, [dispatch, user]);
 
   return (
     <Paper
@@ -138,8 +147,8 @@ const Header = () => {
           sx={{ color: () => theme.palette.secondary.main }}
           onClick={handleClick}
         >
-          {user.avatar ? (
-            <Avatar src={user.avatar} />
+          {user?.avatar ? (
+            <Avatar src={user?.avatar} />
           ) : (
             <Avatar
               sx={{
@@ -147,7 +156,7 @@ const Header = () => {
                 color: () => theme.palette.primary.main,
               }}
             >
-              {user.username.charAt(0).toUpperCase()}
+              {user?.username?.charAt(0).toUpperCase()}
             </Avatar>
           )}
         </IconButton>
