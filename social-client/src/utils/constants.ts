@@ -5,6 +5,7 @@ import BookmarkBorderOutlinedIcon from "@mui/icons-material/BookmarkBorderOutlin
 import LinkIcon from "@mui/icons-material/Link";
 import ReportIcon from "@mui/icons-material/Report";
 import { faker } from "@faker-js/faker";
+import { USER } from "../redux/user/userTypes";
 
 export const profileMenu = [
   {
@@ -35,17 +36,6 @@ export const postMenus = [
 ];
 
 // faker.seed(123);
-
-interface USER {
-  userId: string;
-  username: string;
-  avatar: string;
-  fullName: string;
-  postCount: number;
-  followerCount: number;
-  followingCount: number;
-  bio: string;
-}
 
 export const createUser = () => {
   let user: USER = {
