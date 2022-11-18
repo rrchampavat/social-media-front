@@ -1,23 +1,22 @@
-import { createTheme } from "@mui/system";
+import { createTheme } from "@mui/material";
 
-const theme = createTheme({
+const appTheme = createTheme({
   palette: {
     primary: {
-      main: "#1D3557",
+      dark: "#1D3557",
+      main: "#457B9D",
+      light: "#A8DADC",
+      contrastText: "#F1FAEE",
     },
     secondary: {
-      main: "#457B9D",
-    },
-    tertiary: {
-      main: "#A8DADC",
-    },
-    quaternary: {
-      main: "#F1FAEE",
-    },
-    quinary: {
       main: "#E63946",
     },
+    success: { main: "#2E7D32" },
+    error: {
+      main: "#D32F2F",
+    },
+    warning: { main: "#ED6C02" },
   },
 });
 
-export default theme;
+export default appTheme;

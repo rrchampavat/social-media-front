@@ -4,9 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 import CustomCard from "../../../components/CustomCard";
 import { getPosts } from "../../../redux/post/postActions";
 import { POST } from "../../../redux/post/postTypes";
-// import { createPosts } from "../../../utils/constants";
-
-// const feedPosts = createPosts(10);
 
 const Feed = () => {
   const dispatch = useDispatch();
@@ -17,7 +14,7 @@ const Feed = () => {
   useEffect(() => {
     setFeedPosts(posts);
     if (!posts?.length) {
-      dispatch(getPosts(1));
+      dispatch(getPosts(10));
     }
   }, [posts, dispatch]);
 
@@ -33,7 +30,6 @@ const Feed = () => {
             userAvatar={post.userAvatar}
             isLiked={post.isLiked}
             postID={post.postID}
-            commentsCount={post.commentsCount}
             likeCount={post.likeCount}
             location={post.location}
           />
