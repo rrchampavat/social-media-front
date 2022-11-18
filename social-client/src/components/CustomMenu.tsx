@@ -8,7 +8,7 @@ import {
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { menuPosition } from "../utils/objectMappers";
-import theme from "../utils/theme";
+import appTheme from "../utils/theme";
 
 interface CustomMenuProps {
   open: boolean;
@@ -59,7 +59,7 @@ const CustomMenu = (props: CustomMenuProps) => {
                   color:
                     Icon.type.render.displayName === "ReportIcon"
                       ? "red"
-                      : () => theme.palette.primary.main,
+                      : appTheme.palette.primary.dark,
                 }}
               >
                 <Icon />

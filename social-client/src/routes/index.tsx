@@ -1,6 +1,8 @@
-import MainLoyout from "../layout/MainLayout";
-import Home from "../pages/home";
-import Profile from "../pages/profile";
+import { lazy } from "react";
+
+const MainLoyout = lazy(() => import("../layout/MainLayout"));
+const Home = lazy(() => import("../pages/home"));
+const Profile = lazy(() => import("../pages/profile"));
 
 const Router = [
   {

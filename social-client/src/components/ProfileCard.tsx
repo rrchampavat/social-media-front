@@ -8,7 +8,7 @@ import {
   Typography,
 } from "@mui/material";
 import { flexMiddle } from "../assets/commonStyles";
-import theme from "../utils/theme";
+import appTheme from "../utils/theme";
 
 interface ProfileCardProps {
   userName: string;
@@ -43,7 +43,7 @@ const ProfileCard = (props: ProfileCardProps) => {
             height: "40vh",
             width: "40vh",
             p: 1,
-            bgcolor: () => theme.palette.primary.main,
+            bgcolor: appTheme.palette.primary.contrastText,
           }}
         />
         <CardContent sx={{ maxWidth: "38vh" }}>
@@ -61,7 +61,10 @@ const ProfileCard = (props: ProfileCardProps) => {
           <Box display={"flex"} justifyContent="space-evenly" mt={1}>
             <Box sx={{ ...flexMiddle, flexDirection: "column" }}>
               <Avatar
-                sx={{ bgcolor: () => theme.palette.quinary.main, p: 0.5 }}
+                sx={{
+                  bgcolor: appTheme.palette.primary.dark,
+                  p: 0.5,
+                }}
               >
                 {postCount}
               </Avatar>
@@ -69,7 +72,10 @@ const ProfileCard = (props: ProfileCardProps) => {
             </Box>
             <Box sx={{ ...flexMiddle, flexDirection: "column" }}>
               <Avatar
-                sx={{ bgcolor: () => theme.palette.quinary.main, p: 0.5 }}
+                sx={{
+                  bgcolor: appTheme.palette.primary.dark,
+                  p: 0.5,
+                }}
               >
                 {followingCount}
               </Avatar>
@@ -77,7 +83,10 @@ const ProfileCard = (props: ProfileCardProps) => {
             </Box>
             <Box sx={{ ...flexMiddle, flexDirection: "column" }}>
               <Avatar
-                sx={{ bgcolor: () => theme.palette.quinary.main, p: 0.5 }}
+                sx={{
+                  bgcolor: appTheme.palette.primary.dark,
+                  p: 0.5,
+                }}
               >
                 {followerCount}
               </Avatar>

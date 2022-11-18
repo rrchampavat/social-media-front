@@ -13,7 +13,6 @@ export interface POST {
   comments: COMMENT[];
   userAvatar: string;
   likeCount: number;
-  commentsCount: number;
   isLiked: boolean;
   location: string;
 }

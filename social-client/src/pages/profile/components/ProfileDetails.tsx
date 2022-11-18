@@ -1,9 +1,9 @@
 import { Avatar, Box, Grid, IconButton, Typography } from "@mui/material";
 import CustomBotton from "../../../components/CustomBotton";
-import theme from "../../../utils/theme";
 import { flexMiddle } from "../../../assets/commonStyles";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import { useSelector } from "react-redux";
+import appTheme from "../../../utils/theme";
 
 const ProfileDetails = () => {
   const { user } = useSelector((state: any) => state.UserReducer);
@@ -28,14 +28,14 @@ const ProfileDetails = () => {
               handleClick={() => {}}
               size="small"
               sx={{
-                color: () => theme.palette.primary.main,
-                borderColor: () => theme.palette.primary.main,
+                color: appTheme.palette.primary.dark,
+                borderColor: appTheme.palette.primary.dark,
                 mx: 2,
               }}
             />
             <IconButton
               sx={{
-                color: () => theme.palette.primary.main,
+                color: appTheme.palette.primary.dark,
               }}
             >
               <SettingsOutlinedIcon />
@@ -44,10 +44,20 @@ const ProfileDetails = () => {
         </Box>
         <Box sx={{ ...flexMiddle, flexDirection: "row", my: 2 }}>
           <Typography fontWeight="bold">{user.postCount} Posts</Typography>
-          <Typography mx={2} fontWeight="bold">
+          <Typography
+            mx={2}
+            fontWeight="bold"
+            variant="button"
+            sx={{ cursor: "pointer" }}
+          >
             {user.followerCount} Followers
           </Typography>
-          <Typography fontWeight="bold">
+
+          <Typography
+            fontWeight="bold"
+            variant="button"
+            sx={{ cursor: "pointer" }}
+          >
             {user.followingCount} Following
           </Typography>
         </Box>

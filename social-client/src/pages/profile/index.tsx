@@ -1,5 +1,5 @@
 import { Divider, Grid } from "@mui/material";
-import theme from "../../utils/theme";
+import appTheme from "../../utils/theme";
 import PostsList from "./components/PostsList";
 import ProfileDetails from "./components/ProfileDetails";
 
@@ -12,13 +12,17 @@ const Profile = () => {
         mx: "auto",
         p: 2,
         width: "90vh",
-        // border: "1px solid black",
       }}
     >
       <Grid item>
         <ProfileDetails />
       </Grid>
-      <Divider sx={{ borderColor: () => theme.palette.primary.main, my: 2 }} />
+      <Divider
+        sx={{
+          borderColor: appTheme.palette.primary.dark,
+          my: 2,
+        }}
+      />
       <Grid item>
         <PostsList />
       </Grid>

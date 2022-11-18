@@ -3,11 +3,11 @@ import { SyntheticEvent, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { POST } from "../../../redux/post/postTypes";
 import { getUserPosts } from "../../../redux/user/userActions";
-import theme from "../../../utils/theme";
+import appTheme from "../../../utils/theme";
 
 const PostsList = () => {
   const dispatch = useDispatch();
-  const { posts } = useSelector((state: any) => state.UserReducer);
+  const { posts, user } = useSelector((state: any) => state.UserReducer);
 
   const [userPosts, setUserPosts] = useState<Array<POST>>([]);
   const [activeTab, setActiveTab] = useState<string>("Posts");
@@ -15,21 +15,22 @@ const PostsList = () => {
   useEffect(() => {
     setUserPosts(posts);
     if (!posts?.length) {
-      dispatch(getUserPosts(6));
+      dispatch(getUserPosts(user?.postCount));
     }
-  }, [posts, dispatch]);
+  }, [posts, dispatch, user]);
 
   return (
     <>
       <Tabs
         onChange={(_e: SyntheticEvent, value) => setActiveTab(value)}
-        textColor={theme.palette.primary.main}
+        // @ts-ignore
+        textColor={appTheme.palette.primary.dark}
         indicatorColor="primary"
         value={activeTab}
       >
-        <Tab label="Posts" value="Posts" />
-        <Tab label="Tagged" value="Tagged" />
-        <Tab label="Saved" value="Saved" />
+        <Tab label={`Posts (${posts?.length})`} value="Posts" />
+        <Tab label={`Tagged (${posts?.length})`} value="Tagged" />
+        <Tab label={`Saved (${posts?.length})`} value="Saved" />
       </Tabs>
       <ImageList sx={{ minHeight: "65vh" }} cols={3}>
         {userPosts?.map(({ postID, image }) => (

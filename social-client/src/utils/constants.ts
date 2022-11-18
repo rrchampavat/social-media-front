@@ -4,6 +4,9 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import BookmarkBorderOutlinedIcon from "@mui/icons-material/BookmarkBorderOutlined";
 import LinkIcon from "@mui/icons-material/Link";
 import ReportIcon from "@mui/icons-material/Report";
+import PersonRemoveOutlinedIcon from "@mui/icons-material/PersonRemoveOutlined";
+import ArrowCircleRightOutlinedIcon from "@mui/icons-material/ArrowCircleRightOutlined";
+import ContentCopyOutlinedIcon from "@mui/icons-material/ContentCopyOutlined";
 import { faker } from "@faker-js/faker";
 import { USER } from "../redux/user/userTypes";
 import { POST } from "../redux/post/postTypes";
@@ -24,14 +27,20 @@ export const profileMenu = [
 
 export const postMenus = [
   {
-    label: "Save",
-    onclick: () => console.log("Saved"),
-    icon: BookmarkBorderOutlinedIcon,
+    label: "Unfollow",
+    onclick: () => console.log("Unfollowed"),
+    icon: PersonRemoveOutlinedIcon,
   },
   {
-    label: "Link",
-    onclick: () => console.log("Link"),
-    icon: LinkIcon,
+    label: "Go to post",
+    onclick: () => console.log("Went to post"),
+    icon: ArrowCircleRightOutlinedIcon,
+  },
+
+  {
+    label: "Copy link",
+    onclick: () => console.log("Link Coppied"),
+    icon: ContentCopyOutlinedIcon,
   },
   { label: "Report", onclick: () => console.log("Report"), icon: ReportIcon },
 ];
@@ -106,7 +115,6 @@ export const createPost = () => {
     comments: randomComments(),
     userAvatar: faker.image.avatar(),
     likeCount: faker.datatype.number({ min: 10, max: 200 }),
-    commentsCount: faker.datatype.number({ min: 0, max: 20 }),
     isLiked: faker.datatype.boolean(),
     location: faker.address.cityName(),
   };

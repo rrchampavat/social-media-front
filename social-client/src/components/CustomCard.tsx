@@ -17,11 +17,12 @@ import CommentIcon from "@mui/icons-material/Comment";
 import SendIcon from "@mui/icons-material/Send";
 import { Box } from "@mui/system";
 import { useState } from "react";
-import theme from "../utils/theme";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import CustomMenu from "./CustomMenu";
 import { postMenus } from "../utils/constants";
 import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
+import BookmarkBorderOutlinedIcon from "@mui/icons-material/BookmarkBorderOutlined";
+import appTheme from "../utils/theme";
 
 interface CustomCardProps {
   postID: string;
@@ -31,7 +32,6 @@ interface CustomCardProps {
   comments: Array<any>;
   userAvatar: string;
   likeCount: number;
-  commentsCount: number;
   isLiked: boolean;
   location?: string;
 }
@@ -45,7 +45,6 @@ const CustomCard = (props: CustomCardProps) => {
     comments,
     userAvatar,
     likeCount,
-    commentsCount,
     isLiked,
     location,
   } = props;
@@ -95,12 +94,12 @@ const CustomCard = (props: CustomCardProps) => {
       elevation={5}
       key={postID}
     >
-      <Card sx={{ bgcolor: () => theme.palette.primary.main }}>
+      <Card sx={{ bgcolor: appTheme.palette.primary.dark }}>
         <CardHeader
           avatar={userImage}
           action={
             <IconButton
-              sx={{ color: () => theme.palette.quaternary.main }}
+              sx={{ color: appTheme.palette.primary.contrastText }}
               onClick={handleClick}
             >
               <MoreVertIcon />
@@ -109,7 +108,7 @@ const CustomCard = (props: CustomCardProps) => {
           title={userName}
           sx={{
             ".css-et1ao3-MuiTypography-root,.css-83ijpv-MuiTypography-root": {
-              color: () => theme.palette.quaternary.main,
+              color: appTheme.palette.primary.contrastText,
             },
             ".css-et1ao3-MuiTypography-root": {
               fontWeight: "bold",
@@ -126,7 +125,7 @@ const CustomCard = (props: CustomCardProps) => {
             minHeight: { xs: "31.5vh", md: "45vh" },
             height: { xs: "31.5vh", md: "auto" },
             width: "inherit",
-            bgcolor: () => theme.palette.quaternary.main,
+            bgcolor: appTheme.palette.primary.contrastText,
           }}
         />
 
@@ -137,62 +136,68 @@ const CustomCard = (props: CustomCardProps) => {
             bgcolor: "white",
           }}
         >
-          <Box sx={{ display: "flex", flexDirection: "column" }}>
-            <Box>
-              <IconButton sx={{ color: () => theme.palette.quinary.main }}>
-                {isLiked ? <FavoriteIcon /> : <FavoriteBorderIcon />}
-              </IconButton>
-              <IconButton sx={{ color: () => theme.palette.primary.main }}>
-                <CommentIcon />
-              </IconButton>
-              <IconButton
-                sx={{
-                  color: () => theme.palette.primary.main,
-                }}
-              >
-                <SendIcon />
-              </IconButton>
-            </Box>
-
-            <Box
+          <Box>
+            <IconButton color="secondary">
+              {isLiked ? (
+                <FavoriteIcon sx={{ fontSize: 28 }} />
+              ) : (
+                <FavoriteBorderIcon sx={{ fontSize: 28 }} />
+              )}
+            </IconButton>
+            <IconButton sx={{ color: appTheme.palette.primary.dark }}>
+              <CommentIcon sx={{ fontSize: 28 }} />
+            </IconButton>
+            <IconButton
               sx={{
-                display: "flex",
-                alignItems: "center",
+                color: appTheme.palette.primary.dark,
               }}
             >
-              <AvatarGroup
-                max={4}
-                sx={{
-                  ".css-sxh3gq-MuiAvatar-root-MuiAvatarGroup-avatar": {
-                    height: 24,
-                    width: 24,
-                    fontSize: 13,
-                  },
-                }}
-              >
-                {comments?.map(({ userAvatar, commentID }) => (
-                  <Avatar
-                    key={commentID}
-                    src={userAvatar}
-                    sx={{
-                      height: 24,
-                      width: 24,
-                    }}
-                  />
-                ))}
-              </AvatarGroup>
-              <Typography fontSize={15} ml={1}>
-                Liked by
-              </Typography>
-              &nbsp;
-              <Typography fontSize={15} fontWeight={"bold"}>
-                {isLiked ? "You" : comments[0]?.userName}
-              </Typography>
-              &nbsp;
-              <Typography>and {likeCount} others</Typography>
-            </Box>
+              <SendIcon sx={{ fontSize: 28 }} />
+            </IconButton>
           </Box>
+          <IconButton sx={{ color: appTheme.palette.primary.dark }}>
+            <BookmarkBorderOutlinedIcon sx={{ fontSize: 28 }} />
+          </IconButton>
         </CardActions>
+        <CardContent
+          sx={{
+            bgcolor: "white",
+            display: "flex",
+            alignItems: "center",
+            py: 0,
+          }}
+        >
+          <AvatarGroup
+            max={4}
+            sx={{
+              ".css-sxh3gq-MuiAvatar-root-MuiAvatarGroup-avatar": {
+                height: 30,
+                width: 30,
+                fontSize: 13,
+              },
+            }}
+          >
+            {comments?.map(({ userAvatar, commentID }) => (
+              <Avatar
+                key={commentID}
+                src={userAvatar}
+                sx={{
+                  height: 30,
+                  width: 30,
+                }}
+              />
+            ))}
+          </AvatarGroup>
+          <Typography fontSize={15} ml={1}>
+            Liked by
+          </Typography>
+          &nbsp;
+          <Typography fontSize={15} fontWeight={"bold"}>
+            {isLiked ? "You" : comments[0]?.userName}
+          </Typography>
+          &nbsp;
+          <Typography>and {likeCount} others</Typography>
+        </CardContent>
 
         <CardContent
           sx={{ bgcolor: "white", display: "flex", flexDirection: "column" }}
@@ -209,7 +214,7 @@ const CustomCard = (props: CustomCardProps) => {
             onClick={() => setExpandComments(!expandComments)}
             sx={{ mt: 1, width: "max-content" }}
           >
-            {expandComments ? "Hide" : "Show"} all {commentsCount} comments
+            {expandComments ? "Hide" : "Show"} all {comments?.length} comments
           </Typography>
 
           <Box display={expandComments ? "none" : ""}>
@@ -230,7 +235,7 @@ const CustomCard = (props: CustomCardProps) => {
               <Card
                 sx={{
                   m: 1,
-                  bgcolor: () => theme.palette.quaternary.main,
+                  bgcolor: appTheme.palette.primary.contrastText,
                 }}
                 key={comment.commentID}
               >
@@ -238,7 +243,13 @@ const CustomCard = (props: CustomCardProps) => {
                   avatar={<Avatar src={comment.userAvatar} />}
                   title={comment.userName}
                   // subheader={}
-                  sx={{ p: 1 }}
+                  sx={{
+                    p: 1,
+                    ".css-et1ao3-MuiTypography-root": {
+                      color: appTheme.palette.primary.dark,
+                      fontWeight: "bold",
+                    },
+                  }}
                 />
 
                 <CardContent
@@ -255,10 +266,7 @@ const CustomCard = (props: CustomCardProps) => {
                       flexDirection: "column",
                     }}
                   >
-                    <IconButton
-                      size="small"
-                      sx={{ color: () => theme.palette.quinary.main }}
-                    >
+                    <IconButton size="small" color="secondary">
                       {comment.isLiked ? (
                         <FavoriteIcon />
                       ) : (
