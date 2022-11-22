@@ -1,4 +1,14 @@
-import { ImageList, ImageListItem, Tab, Tabs } from "@mui/material";
+import {
+  Box,
+  IconButton,
+  ImageList,
+  ImageListItem,
+  ImageListItemBar,
+  Tab,
+  Tabs,
+  Typography,
+  useMediaQuery,
+} from "@mui/material";
 import { SyntheticEvent, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import PostDialog from "../../../components/DialogBox/PostDialog";
@@ -6,10 +16,15 @@ import { POST } from "../../../redux/post/postTypes";
 import { getUserPosts } from "../../../redux/user/userActions";
 import { initialPostState } from "../../../utils/initialStates";
 import appTheme from "../../../utils/theme";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import CameraAltOutlinedIcon from "@mui/icons-material/CameraAltOutlined";
 
 const PostsList = () => {
   const dispatch = useDispatch();
   const { posts, user } = useSelector((state: any) => state.UserReducer);
+
+  const isMDView = useMediaQuery("(min-width:600px)");
 
   const [userPosts, setUserPosts] = useState<Array<POST>>([]);
   const [activeTab, setActiveTab] = useState<string>("Posts");
@@ -28,7 +43,7 @@ const PostsList = () => {
     setSelectedPost(post);
   };
 
-  return (
+  return userPosts?.length ? (
     <>
       <Tabs
         onChange={(_e: SyntheticEvent, value) => setActiveTab(value)}
@@ -41,10 +56,45 @@ const PostsList = () => {
         <Tab label={`Tagged (${posts?.length})`} value="Tagged" />
         <Tab label={`Saved (${posts?.length})`} value="Saved" />
       </Tabs>
-      <ImageList sx={{ minHeight: "65vh" }} cols={3}>
+
+      <ImageList
+        sx={{ minHeight: { xs: "35vh", md: "55vh" } }}
+        cols={3}
+        rowHeight={isMDView ? 230 : 120}
+        gap={isMDView ? 10 : 4}
+      >
         {userPosts?.map((post) => (
-          <ImageListItem key={post.postID} onClick={() => handleClick(post)}>
-            <img src={post.image} alt="Post" loading="lazy" />
+          <ImageListItem key={post?.postID} onClick={() => handleClick(post)}>
+            <img src={post?.image} alt="Post" />
+
+            <ImageListItemBar
+              sx={{
+                background:
+                  "linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, " +
+                  "rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%)",
+              }}
+              // title={post.caption}
+              position="top"
+              actionIcon={
+                <IconButton
+                  sx={{ color: "white" }}
+                  aria-label={`star ${post.caption}`}
+                >
+                  {post?.isLiked ? (
+                    <FavoriteIcon
+                      color="secondary"
+                      sx={{ fontSize: { xs: 15, md: 20 } }}
+                    />
+                  ) : (
+                    <FavoriteBorderIcon
+                      // color="secondary"
+                      sx={{ fontSize: { xs: 15, md: 20 } }}
+                    />
+                  )}
+                </IconButton>
+              }
+              actionPosition="right"
+            />
           </ImageListItem>
         ))}
       </ImageList>
@@ -55,6 +105,26 @@ const PostsList = () => {
         post={selectedPost}
       />
     </>
+  ) : (
+    <Box
+      sx={{
+        minHeight: { xs: "55vh", md: "67.5vh" },
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+      <CameraAltOutlinedIcon
+        sx={{
+          fontSize: { xs: 50, md: 80 },
+          color: appTheme.palette.primary.dark,
+          mr: 1,
+        }}
+      />
+      <Typography variant="h5" sx={{ color: appTheme.palette.primary.dark }}>
+        No Posts Yet !
+      </Typography>
+    </Box>
   );
 };
 
