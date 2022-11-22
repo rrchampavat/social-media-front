@@ -59,6 +59,7 @@ const ProfileDetails = () => {
                 <SettingsOutlinedIcon />
               </IconButton>
             </Box>
+
             <CustomBotton
               variant="outlined"
               label="Edit Profile"
