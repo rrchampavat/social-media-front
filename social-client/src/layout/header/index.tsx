@@ -101,7 +101,10 @@ const Header = () => {
           mr: { xs: 2, md: 10 },
         }}
       >
-        <IconButton onClick={() => navigate("/")} sx={{}}>
+        <IconButton
+          onClick={() => navigate("/")}
+          sx={{ display: { xs: "none", md: "" } }}
+        >
           <HomeIcon
             sx={{ fontSize: 35, color: appTheme.palette.primary.contrastText }}
           />
@@ -115,6 +118,7 @@ const Header = () => {
               bgcolor: appTheme.palette.primary.light,
               color: appTheme.palette.primary.dark,
             },
+            display: { xs: "none", md: "" },
           }}
         >
           <IconButton
@@ -135,6 +139,7 @@ const Header = () => {
               bgcolor: appTheme.palette.primary.light,
               color: appTheme.palette.primary.dark,
             },
+            display: { xs: "none", md: "" },
           }}
         >
           <IconButton

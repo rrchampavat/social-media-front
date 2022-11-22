@@ -1,12 +1,12 @@
 import { Button } from "@mui/material";
 
 interface ButtonProps {
-  variant: any;
-  disabled?: any;
-  handleClick: any;
-  lable: any;
-  size?: any;
-  sx?: any;
+  variant: "text" | "outlined" | "contained" | undefined;
+  disabled?: boolean;
+  handleClick?: any;
+  label: string;
+  size?: "medium" | "small" | "large" | undefined;
+  sx?: object;
 }
 
 const CustomBotton = (props: ButtonProps) => {
@@ -14,7 +14,7 @@ const CustomBotton = (props: ButtonProps) => {
     variant,
     disabled = false,
     handleClick,
-    lable,
+    label,
     size = "medium",
     sx,
   } = props;
@@ -27,7 +27,7 @@ const CustomBotton = (props: ButtonProps) => {
       size={size}
       sx={sx}
     >
-      {lable}
+      {label}
     </Button>
   );
 };

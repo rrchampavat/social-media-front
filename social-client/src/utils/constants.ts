@@ -1,8 +1,6 @@
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import SettingsIcon from "@mui/icons-material/Settings";
 import LogoutIcon from "@mui/icons-material/Logout";
-import BookmarkBorderOutlinedIcon from "@mui/icons-material/BookmarkBorderOutlined";
-import LinkIcon from "@mui/icons-material/Link";
 import ReportIcon from "@mui/icons-material/Report";
 import PersonRemoveOutlinedIcon from "@mui/icons-material/PersonRemoveOutlined";
 import ArrowCircleRightOutlinedIcon from "@mui/icons-material/ArrowCircleRightOutlined";
@@ -64,8 +62,8 @@ export const createUser = () => {
 
 const users: USER[] = [];
 
-export const createUsers = () => {
-  Array.from({ length: 1 }).forEach(() => {
+export const createUsers = (count = 10) => {
+  Array.from({ length: count }).forEach(() => {
     users.push(createUser());
   });
 
@@ -89,7 +87,7 @@ export const createComment = () => {
     userAvatar: faker.image.avatar(),
     text: faker.lorem.sentence(),
     likes: faker.datatype.number({ min: 10, max: 500 }),
-    date: faker.date.between(new Date(10 / 10 / 2022), new Date()),
+    date: faker.date.between("2022-08-14T00:00:00.000Z", new Date()),
     isLiked: faker.datatype.boolean(),
   };
 
@@ -117,6 +115,7 @@ export const createPost = () => {
     likeCount: faker.datatype.number({ min: 10, max: 200 }),
     isLiked: faker.datatype.boolean(),
     location: faker.address.cityName(),
+    created_at: faker.date.between("2022-08-14T00:00:00.000Z", new Date()),
   };
 
   return post;
