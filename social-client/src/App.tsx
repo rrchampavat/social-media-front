@@ -6,6 +6,7 @@ import appTheme from "./utils/theme";
 
 function App() {
   const router = useRoutes(Router);
+
   return <ThemeProvider theme={appTheme}>{router}</ThemeProvider>;
 }
 

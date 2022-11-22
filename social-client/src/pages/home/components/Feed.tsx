@@ -1,15 +1,19 @@
 import { Box } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import CustomCard from "../../../components/CustomCard";
+import CustomPostCard from "../../../components/Cards/CustomPostCard";
+import PostDialog from "../../../components/DialogBox/PostDialog";
 import { getPosts } from "../../../redux/post/postActions";
 import { POST } from "../../../redux/post/postTypes";
+import { initialPostState } from "../../../utils/initialStates";
 
 const Feed = () => {
   const dispatch = useDispatch();
   const { posts } = useSelector((state: any) => state.PostReducer);
 
   const [feedPosts, setFeedPosts] = useState<Array<POST>>([]);
+  const [openDialog, setOpenDialog] = useState<boolean>(false);
+  const [selectedPost, setSelectedPost] = useState<POST>(initialPostState);
 
   useEffect(() => {
     setFeedPosts(posts);
@@ -18,23 +22,34 @@ const Feed = () => {
     }
   }, [posts, dispatch]);
 
+  const handleClick = (post: POST): void => {
+    setOpenDialog(true);
+    setSelectedPost(post);
+  };
+
   return (
     <Box>
       {feedPosts?.map((post: POST) => (
-        <Box key={post.postID}>
-          <CustomCard
-            userName={post.userName}
-            image={post.image}
-            caption={post.caption}
-            comments={post.comments}
-            userAvatar={post.userAvatar}
-            isLiked={post.isLiked}
-            postID={post.postID}
-            likeCount={post.likeCount}
-            location={post.location}
-          />
-        </Box>
+        <CustomPostCard
+          userName={post.userName}
+          image={post.image}
+          caption={post.caption}
+          comments={post.comments}
+          userAvatar={post.userAvatar}
+          isLiked={post.isLiked}
+          postID={post.postID}
+          likeCount={post.likeCount}
+          location={post.location}
+          created_at={post.created_at}
+          handleClick={() => handleClick(post)}
+        />
       ))}
+
+      <PostDialog
+        open={openDialog}
+        onClose={() => setOpenDialog(false)}
+        post={selectedPost}
+      />
     </Box>
   );
 };

@@ -6,8 +6,8 @@ import {
   CardContent,
   CardHeader,
   CardMedia,
-  Collapse,
   IconButton,
+  InputBase,
   Paper,
   Typography,
 } from "@mui/material";
@@ -16,27 +16,31 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import CommentIcon from "@mui/icons-material/Comment";
 import SendIcon from "@mui/icons-material/Send";
 import { Box } from "@mui/system";
-import { useState } from "react";
+import { ReactElement, useState } from "react";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import CustomMenu from "./CustomMenu";
-import { postMenus } from "../utils/constants";
+import CustomMenu from "../CustomMenu";
+import { COMMENT, postMenus } from "../../utils/constants";
 import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
 import BookmarkBorderOutlinedIcon from "@mui/icons-material/BookmarkBorderOutlined";
-import appTheme from "../utils/theme";
+import appTheme from "../../utils/theme";
+import CustomBotton from "../CustomBotton";
+import moment from "moment";
 
-interface CustomCardProps {
+interface CustomPostCardProps {
   postID: string;
   userName: string;
   image: string;
   caption: string;
-  comments: Array<any>;
+  comments: Array<COMMENT>;
   userAvatar: string;
   likeCount: number;
   isLiked: boolean;
   location?: string;
+  created_at: Date;
+  handleClick: any;
 }
 
-const CustomCard = (props: CustomCardProps) => {
+const CustomPostCard = (props: CustomPostCardProps) => {
   const {
     postID,
     userName,
@@ -47,24 +51,27 @@ const CustomCard = (props: CustomCardProps) => {
     likeCount,
     isLiked,
     location,
+    created_at,
+    handleClick,
   } = props;
 
   const [openPostMenu, setPostMenu] = useState<boolean>(false);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const [expandComments, setExpandComments] = useState<boolean>(false);
 
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const handleMenuClick = (
+    event: React.MouseEvent<HTMLButtonElement>
+  ): void => {
     setAnchorEl(event.currentTarget);
     setPostMenu(true);
   };
 
-  const userImage = userAvatar ? (
+  const userImage: ReactElement = userAvatar ? (
     <Avatar src={userAvatar} />
   ) : (
     <Avatar>{userName.charAt(0).toUpperCase()}</Avatar>
   );
 
-  const locationEle = (
+  const locationEle: ReactElement = (
     <Box
       sx={{
         display: "flex",
@@ -100,7 +107,7 @@ const CustomCard = (props: CustomCardProps) => {
           action={
             <IconButton
               sx={{ color: appTheme.palette.primary.contrastText }}
-              onClick={handleClick}
+              onClick={handleMenuClick}
             >
               <MoreVertIcon />
             </IconButton>
@@ -127,6 +134,7 @@ const CustomCard = (props: CustomCardProps) => {
             width: "inherit",
             bgcolor: appTheme.palette.primary.contrastText,
           }}
+          onClick={handleClick}
         />
 
         <CardActions
@@ -144,7 +152,10 @@ const CustomCard = (props: CustomCardProps) => {
                 <FavoriteBorderIcon sx={{ fontSize: 28 }} />
               )}
             </IconButton>
-            <IconButton sx={{ color: appTheme.palette.primary.dark }}>
+            <IconButton
+              sx={{ color: appTheme.palette.primary.dark }}
+              onClick={handleClick}
+            >
               <CommentIcon sx={{ fontSize: 28 }} />
             </IconButton>
             <IconButton
@@ -159,6 +170,7 @@ const CustomCard = (props: CustomCardProps) => {
             <BookmarkBorderOutlinedIcon sx={{ fontSize: 28 }} />
           </IconButton>
         </CardActions>
+
         <CardContent
           sx={{
             bgcolor: "white",
@@ -211,77 +223,67 @@ const CustomCard = (props: CustomCardProps) => {
 
           <Typography
             variant="button"
-            onClick={() => setExpandComments(!expandComments)}
-            sx={{ mt: 1, width: "max-content" }}
+            onClick={handleClick}
+            sx={{ mt: 1, width: "max-content", cursor: "pointer" }}
           >
-            {expandComments ? "Hide" : "Show"} all {comments?.length} comments
+            View all {comments?.length} comments
           </Typography>
 
-          <Box display={expandComments ? "none" : ""}>
-            {comments?.slice(0, 2)?.map(({ userName, text, commentID }) => (
-              <Box sx={{ display: "flex" }} key={commentID}>
+          {comments
+            ?.slice(0, 2)
+            ?.map(({ userName, text, commentID, isLiked }) => (
+              <Box
+                sx={{ display: "flex", alignItems: "center" }}
+                key={commentID}
+              >
                 <Typography fontSize={13} fontWeight={"bold"} mr={1}>
                   {userName}
                 </Typography>
                 <Typography fontSize={13}>{text}</Typography>
+                <IconButton sx={{ ml: "auto" }}>
+                  {isLiked ? (
+                    <FavoriteIcon color="secondary" sx={{ fontSize: 15 }} />
+                  ) : (
+                    <FavoriteBorderIcon
+                      color="secondary"
+                      sx={{ fontSize: 15 }}
+                    />
+                  )}
+                </IconButton>
               </Box>
             ))}
-          </Box>
+
+          <Typography variant="caption" mt={1} sx={{ color: "grey" }}>
+            {moment(created_at).fromNow()}
+          </Typography>
         </CardContent>
 
-        <Collapse in={expandComments} unmountOnExit sx={{ bgcolor: "white" }}>
-          <CardContent sx={{ pt: 0 }}>
-            {comments?.map((comment) => (
-              <Card
-                sx={{
-                  m: 1,
-                  bgcolor: appTheme.palette.primary.contrastText,
-                }}
-                key={comment.commentID}
-              >
-                <CardHeader
-                  avatar={<Avatar src={comment.userAvatar} />}
-                  title={comment.userName}
-                  // subheader={}
-                  sx={{
-                    p: 1,
-                    ".css-et1ao3-MuiTypography-root": {
-                      color: appTheme.palette.primary.dark,
-                      fontWeight: "bold",
-                    },
-                  }}
-                />
-
-                <CardContent
-                  sx={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    p: "8px !important",
-                  }}
-                >
-                  <Typography variant="body1">{comment.text}</Typography>
-                  <Box
-                    sx={{
-                      display: "flex",
-                      flexDirection: "column",
-                    }}
-                  >
-                    <IconButton size="small" color="secondary">
-                      {comment.isLiked ? (
-                        <FavoriteIcon />
-                      ) : (
-                        <FavoriteBorderIcon />
-                      )}
-                    </IconButton>
-                    <Typography sx={{ mx: "auto" }} variant="caption">
-                      {Math.floor(Math.random() * 10)}
-                    </Typography>
-                  </Box>
-                </CardContent>
-              </Card>
-            ))}
-          </CardContent>
-        </Collapse>
+        <InputBase
+          placeholder="Comment..."
+          sx={{
+            backgroundColor: appTheme.palette.primary.dark,
+            color: appTheme.palette.primary.contrastText,
+            height: 50,
+            flex: 1,
+            width: "100%",
+            p: 1,
+            m: "0px !important",
+            ".css-1uqfcdx-MuiButtonBase-root-MuiButton-root:hover": {
+              border: `1px solid ${appTheme.palette.primary.contrastText}`,
+              // boxShadow: "0px -1px 40px 0px rgba(0,0,0,0.75)",
+            },
+          }}
+          endAdornment={
+            <CustomBotton
+              variant="outlined"
+              label="Post "
+              sx={{
+                borderColor: appTheme.palette.primary.contrastText,
+                color: appTheme.palette.primary.contrastText,
+              }}
+            />
+          }
+        />
       </Card>
 
       <CustomMenu
@@ -299,4 +301,4 @@ const CustomCard = (props: CustomCardProps) => {
   );
 };
 
-export default CustomCard;
+export default CustomPostCard;

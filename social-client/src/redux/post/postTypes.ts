@@ -15,6 +15,7 @@ export interface POST {
   likeCount: number;
   isLiked: boolean;
   location: string;
+  created_at: Date;
 }
 
 export interface POST_STATE {

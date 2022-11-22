@@ -1,12 +1,29 @@
+import { useState } from "react";
 import { Avatar, Box, Grid, IconButton, Typography } from "@mui/material";
 import CustomBotton from "../../../components/CustomBotton";
 import { flexMiddle } from "../../../assets/commonStyles";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import { useSelector } from "react-redux";
 import appTheme from "../../../utils/theme";
+import UsersListDialog from "../../../components/DialogBox/UsersListDialog";
+import { createUsers } from "../../../utils/constants";
+import { faker } from "@faker-js/faker";
+import { USER } from "../../../redux/user/userTypes";
+
+const users = createUsers(20);
 
 const ProfileDetails = () => {
   const { user } = useSelector((state: any) => state.UserReducer);
+
+  const [header, setHeader] = useState<string>("");
+  const [userList, setUserList] = useState<Array<USER>>([]);
+  const [openDialog, setOpenDialog] = useState<boolean>(false);
+
+  const handleOpenDialog = (type: string) => {
+    setOpenDialog(true);
+    setHeader(type);
+    setUserList(users?.map((user) => ({ ...user, userType: type })));
+  };
 
   return (
     <Grid container direction={"row"}>
@@ -24,7 +41,7 @@ const ProfileDetails = () => {
           <Box whiteSpace={"nowrap"}>
             <CustomBotton
               variant="outlined"
-              lable="Edit Profile"
+              label="Edit Profile"
               handleClick={() => {}}
               size="small"
               sx={{
@@ -49,6 +66,7 @@ const ProfileDetails = () => {
             fontWeight="bold"
             variant="button"
             sx={{ cursor: "pointer" }}
+            onClick={() => handleOpenDialog("Follower")}
           >
             {user.followerCount} Followers
           </Typography>
@@ -57,6 +75,7 @@ const ProfileDetails = () => {
             fontWeight="bold"
             variant="button"
             sx={{ cursor: "pointer" }}
+            onClick={() => handleOpenDialog("Following")}
           >
             {user.followingCount} Following
           </Typography>
@@ -65,6 +84,19 @@ const ProfileDetails = () => {
         <Typography fontWeight="bold">{user.fullName}</Typography>
         <Typography whiteSpace="pre-line">{user.bio}</Typography>
       </Grid>
+
+      <UsersListDialog
+        open={openDialog}
+        data={userList?.map((user: any) => ({
+          userId: user?.userId,
+          avatar: user?.avatar,
+          username: user?.username,
+          following: faker.datatype.boolean(),
+          userType: user?.userType,
+        }))}
+        handleClose={() => setOpenDialog(false)}
+        title={header}
+      />
     </Grid>
   );
 };
