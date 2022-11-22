@@ -6,6 +6,7 @@ import {
   InputBase,
   Paper,
   Typography,
+  useMediaQuery,
 } from "@mui/material";
 import ChatIcon from "@mui/icons-material/Chat";
 // import MenuIcon from "@mui/icons-material/Menu";
@@ -29,6 +30,8 @@ const Header = () => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [openProfileMenu, setOpenProfileMenu] = useState<boolean>(false);
 
+  const mdView = useMediaQuery("(min-width:600px)");
+
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
     setOpenProfileMenu(true);
@@ -44,7 +47,7 @@ const Header = () => {
     <Paper
       elevation={5}
       sx={{
-        height: 100,
+        height: { xs: 50, md: 100 },
         width: "100%",
         display: "flex",
         justifyContent: "space-between",
@@ -58,7 +61,7 @@ const Header = () => {
     >
       <Typography
         color={appTheme.palette.primary.contrastText}
-        variant="h4"
+        variant={mdView ? "h4" : "h6"}
         fontWeight={"bold"}
         fontFamily="Inter, 'system-ui', 'sans-serif'"
         sx={{
@@ -103,12 +106,13 @@ const Header = () => {
       >
         <IconButton
           onClick={() => navigate("/")}
-          sx={{ display: { xs: "none", md: "" } }}
+          sx={{ display: { xs: "none", md: "inline-flex" } }}
         >
           <HomeIcon
             sx={{ fontSize: 35, color: appTheme.palette.primary.contrastText }}
           />
         </IconButton>
+
         <Badge
           badgeContent={5}
           max={9}
@@ -117,8 +121,13 @@ const Header = () => {
             ".css-fvc8ir-MuiBadge-badge": {
               bgcolor: appTheme.palette.primary.light,
               color: appTheme.palette.primary.dark,
+              height: { xs: 10, md: 20 },
+              width: { xs: 0, md: 0 },
+              minWidth: { xs: 10, md: 20 },
+              fontSize: { xs: "0.5rem", md: "0.75rem" },
             },
-            display: { xs: "none", md: "" },
+            height: { xs: 30, md: 40 },
+            width: { xs: 30, md: 40 },
           }}
         >
           <IconButton
@@ -126,7 +135,7 @@ const Header = () => {
               color: appTheme.palette.primary.contrastText,
             }}
           >
-            <ChatIcon sx={{ fontSize: 30 }} />
+            <ChatIcon sx={{ fontSize: { xs: 23, md: 30 } }} />
           </IconButton>
         </Badge>
 
@@ -138,8 +147,13 @@ const Header = () => {
             ".css-fvc8ir-MuiBadge-badge": {
               bgcolor: appTheme.palette.primary.light,
               color: appTheme.palette.primary.dark,
+              height: { xs: 10, md: 20 },
+              width: { xs: 0, md: 0 },
+              minWidth: { xs: 10, md: 20 },
+              fontSize: { xs: "0.5rem", md: "0.75rem" },
             },
-            display: { xs: "none", md: "" },
+            height: { xs: 30, md: 40 },
+            width: { xs: 30, md: 40 },
           }}
         >
           <IconButton
@@ -147,18 +161,23 @@ const Header = () => {
               color: appTheme.palette.primary.contrastText,
             }}
           >
-            <NotificationsIcon sx={{ fontSize: 30 }} />
+            <NotificationsIcon sx={{ fontSize: { xs: 23, md: 30 } }} />
           </IconButton>
         </Badge>
 
         <IconButton onClick={handleClick}>
           {user?.avatar ? (
-            <Avatar src={user?.avatar} />
+            <Avatar
+              src={user?.avatar}
+              sx={{ width: { xs: 30, md: 40 }, height: { xs: 30, md: 40 } }}
+            />
           ) : (
             <Avatar
               sx={{
                 bgcolor: appTheme.palette.primary.light,
                 color: appTheme.palette.primary.dark,
+                width: { xs: 30, md: 40 },
+                height: { xs: 30, md: 40 },
               }}
             >
               {user?.username?.charAt(0).toUpperCase()}

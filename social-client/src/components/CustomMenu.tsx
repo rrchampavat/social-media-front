@@ -48,7 +48,14 @@ const CustomMenu = (props: CustomMenuProps) => {
     >
       {menuList?.map(({ label, navigateTo, Icon }: MenuListProps, id) => (
         <Box key={id}>
-          <MenuItem onClick={() => handleAction(navigateTo)}>
+          <MenuItem
+            onClick={() => handleAction(navigateTo)}
+            sx={{
+              py: { xs: 0, md: 0.75 },
+              px: { xs: 1, md: 2 },
+              minHeight: { xs: 4, md: 6 },
+            }}
+          >
             {Icon ? (
               <ListItemIcon
                 sx={{

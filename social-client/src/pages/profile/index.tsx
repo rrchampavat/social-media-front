@@ -11,12 +11,13 @@ const Profile = () => {
       sx={{
         mx: "auto",
         p: 2,
-        width: "90vh",
+        width: { xs: "auto", md: "90vh" },
       }}
     >
       <Grid item>
         <ProfileDetails />
       </Grid>
+
       <Divider
         sx={{
           borderColor: appTheme.palette.primary.dark,

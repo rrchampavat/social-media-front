@@ -6,10 +6,10 @@ import {
   IconButton,
   List,
   ListItem,
-  ListItemAvatar,
   ListItemButton,
   ListItemText,
   Typography,
+  useMediaQuery,
 } from "@mui/material";
 import appTheme from "../../utils/theme";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
@@ -33,6 +33,8 @@ interface UserListDialogProps {
 const UsersListDialog = (props: UserListDialogProps) => {
   const { data, handleClose, open, title } = props;
 
+  const isMDView = useMediaQuery("(min-width:600px)");
+
   return (
     <Dialog
       // @ts-ignore
@@ -41,7 +43,7 @@ const UsersListDialog = (props: UserListDialogProps) => {
     >
       <List
         sx={{
-          width: 500,
+          width: { xs: 300, md: 500 },
           bgcolor: appTheme.palette.primary.contrastText,
           "::-webkit-scrollbar ": {
             display: "none",
@@ -52,18 +54,17 @@ const UsersListDialog = (props: UserListDialogProps) => {
         <Box
           sx={{
             display: "flex",
-            position: "fixed",
+            position: "sticky",
             zIndex: 1,
             backgroundColor: appTheme.palette.primary.contrastText,
-            width: 500,
-            top: 32,
-            borderRadius: 1,
+            width: { xs: 300, md: 500 },
+            top: 0,
           }}
         >
           {title ? (
             <DialogTitle>
               <Typography
-                variant="h5"
+                variant={isMDView ? "h5" : "h6"}
                 color={appTheme.palette.primary.dark}
                 mx="auto"
                 width="fit-content"
@@ -73,6 +74,7 @@ const UsersListDialog = (props: UserListDialogProps) => {
               </Typography>
             </DialogTitle>
           ) : null}
+
           <IconButton
             sx={{
               height: 40,
@@ -92,7 +94,6 @@ const UsersListDialog = (props: UserListDialogProps) => {
             key={user.userId}
             sx={{
               pr: 0,
-              top: 54,
             }}
           >
             <ListItem
@@ -108,17 +109,31 @@ const UsersListDialog = (props: UserListDialogProps) => {
                   }
                   variant="outlined"
                   sx={{
-                    width: 110,
+                    width: { xs: 10, md: 110 },
                     borderColor: appTheme.palette.primary.dark,
                     color: appTheme.palette.primary.dark,
+                    fontSize: { xs: 9, md: 12 },
                   }}
                 />
               }
             >
-              <ListItemAvatar>
-                <Avatar src={user.avatar} />
-              </ListItemAvatar>
-              <ListItemText primary={user?.username} />
+              <Avatar
+                sx={{
+                  width: { xs: 30, md: 40 },
+                  height: { xs: 30, md: 40 },
+                  mr: { xs: 1, md: 2 },
+                }}
+                src={user.avatar}
+              />
+
+              <ListItemText
+                primary={user?.username}
+                sx={{
+                  ".css-10hburv-MuiTypography-root": {
+                    fontSize: { xs: 12, md: "1rem" },
+                  },
+                }}
+              />
             </ListItem>
           </ListItemButton>
         ))}

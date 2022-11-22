@@ -10,6 +10,7 @@ import {
   InputBase,
   Paper,
   Typography,
+  useMediaQuery,
 } from "@mui/material";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
@@ -58,6 +59,8 @@ const CustomPostCard = (props: CustomPostCardProps) => {
   const [openPostMenu, setPostMenu] = useState<boolean>(false);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
+  const mdView = useMediaQuery("(min-width:600px)");
+
   const handleMenuClick = (
     event: React.MouseEvent<HTMLButtonElement>
   ): void => {
@@ -66,9 +69,14 @@ const CustomPostCard = (props: CustomPostCardProps) => {
   };
 
   const userImage: ReactElement = userAvatar ? (
-    <Avatar src={userAvatar} />
+    <Avatar
+      src={userAvatar}
+      sx={{ width: { xs: 30, md: 40 }, height: { xs: 30, md: 40 } }}
+    />
   ) : (
-    <Avatar>{userName.charAt(0).toUpperCase()}</Avatar>
+    <Avatar sx={{ width: { xs: 30, md: 40 }, height: { xs: 30, md: 40 } }}>
+      {userName.charAt(0).toUpperCase()}
+    </Avatar>
   );
 
   const locationEle: ReactElement = (
@@ -79,10 +87,10 @@ const CustomPostCard = (props: CustomPostCardProps) => {
         alignItems: "center",
       }}
     >
-      <LocationOnOutlinedIcon sx={{ fontSize: "", mr: 0.3 }} />
+      <LocationOnOutlinedIcon sx={{ fontSize: { xs: 10, md: 14 }, mr: 0.3 }} />
       <Typography
         sx={{
-          fontSize: "",
+          fontSize: { xs: 10, md: 14 },
           fontFamily: '"Roboto","Helvetica","Arial",sans-serif',
           fontWeight: 400,
         }}
@@ -109,17 +117,22 @@ const CustomPostCard = (props: CustomPostCardProps) => {
               sx={{ color: appTheme.palette.primary.contrastText }}
               onClick={handleMenuClick}
             >
-              <MoreVertIcon />
+              <MoreVertIcon sx={{ fontSize: { xs: 15, md: "1.5rem" } }} />
             </IconButton>
           }
           title={userName}
           sx={{
             ".css-et1ao3-MuiTypography-root,.css-83ijpv-MuiTypography-root": {
               color: appTheme.palette.primary.contrastText,
+              fontSize: { xs: "0.65rem", md: "0.875rem" },
             },
             ".css-et1ao3-MuiTypography-root": {
               fontWeight: "bold",
             },
+            ".css-hrzsje-MuiTypography-root": {
+              fontSize: { xs: 10, md: 14 },
+            },
+            p: { xs: 1, md: 2 },
           }}
           subheader={location ? locationEle : null}
         />
@@ -142,32 +155,33 @@ const CustomPostCard = (props: CustomPostCardProps) => {
             display: "flex",
             justifyContent: "space-between",
             bgcolor: "white",
+            py: 0,
           }}
         >
           <Box>
             <IconButton color="secondary">
               {isLiked ? (
-                <FavoriteIcon sx={{ fontSize: 28 }} />
+                <FavoriteIcon sx={{ fontSize: { xs: 20, md: 28 } }} />
               ) : (
-                <FavoriteBorderIcon sx={{ fontSize: 28 }} />
+                <FavoriteBorderIcon sx={{ fontSize: { xs: 20, md: 28 } }} />
               )}
             </IconButton>
             <IconButton
               sx={{ color: appTheme.palette.primary.dark }}
               onClick={handleClick}
             >
-              <CommentIcon sx={{ fontSize: 28 }} />
+              <CommentIcon sx={{ fontSize: { xs: 20, md: 28 } }} />
             </IconButton>
             <IconButton
               sx={{
                 color: appTheme.palette.primary.dark,
               }}
             >
-              <SendIcon sx={{ fontSize: 28 }} />
+              <SendIcon sx={{ fontSize: { xs: 20, md: 28 } }} />
             </IconButton>
           </Box>
           <IconButton sx={{ color: appTheme.palette.primary.dark }}>
-            <BookmarkBorderOutlinedIcon sx={{ fontSize: 28 }} />
+            <BookmarkBorderOutlinedIcon sx={{ fontSize: { xs: 20, md: 28 } }} />
           </IconButton>
         </CardActions>
 
@@ -183,9 +197,9 @@ const CustomPostCard = (props: CustomPostCardProps) => {
             max={4}
             sx={{
               ".css-sxh3gq-MuiAvatar-root-MuiAvatarGroup-avatar": {
-                height: 30,
-                width: 30,
-                fontSize: 13,
+                height: { xs: 20, md: 30 },
+                width: { xs: 20, md: 30 },
+                fontSize: { xs: 11, md: 14 },
               },
             }}
           >
@@ -194,66 +208,89 @@ const CustomPostCard = (props: CustomPostCardProps) => {
                 key={commentID}
                 src={userAvatar}
                 sx={{
-                  height: 30,
-                  width: 30,
+                  height: { xs: 20, md: 30 },
+                  width: { xs: 20, md: 30 },
                 }}
               />
             ))}
           </AvatarGroup>
-          <Typography fontSize={15} ml={1}>
+          <Typography fontSize={mdView ? 15 : 12} ml={1}>
             Liked by
           </Typography>
           &nbsp;
-          <Typography fontSize={15} fontWeight={"bold"}>
+          <Typography fontSize={mdView ? 15 : 12} fontWeight={"bold"}>
             {isLiked ? "You" : comments[0]?.userName}
           </Typography>
           &nbsp;
-          <Typography>and {likeCount} others</Typography>
+          <Typography fontSize={mdView ? 15 : 12}>
+            and {likeCount} others
+          </Typography>
         </CardContent>
 
         <CardContent
-          sx={{ bgcolor: "white", display: "flex", flexDirection: "column" }}
+          sx={{
+            bgcolor: "white",
+            display: "flex",
+            flexDirection: "column",
+            py: 0.5,
+          }}
         >
           <Box sx={{ display: "flex" }}>
-            <Typography variant="body1" fontWeight={"bold"} sx={{ mr: 1 }}>
+            <Typography
+              variant={mdView ? "body1" : "caption"}
+              fontWeight={"bold"}
+              sx={{ mr: 1 }}
+            >
               {userName}
             </Typography>
-            <Typography variant="body1">{caption}</Typography>
+            <Typography variant={mdView ? "body1" : "caption"}>
+              {caption}
+            </Typography>
           </Box>
 
           <Typography
             variant="button"
             onClick={handleClick}
-            sx={{ mt: 1, width: "max-content", cursor: "pointer" }}
+            sx={{ mt: 0.5, width: "max-content", cursor: "pointer" }}
+            fontSize={mdView ? 15 : 12}
           >
             View all {comments?.length} comments
           </Typography>
 
-          {comments
-            ?.slice(0, 2)
-            ?.map(({ userName, text, commentID, isLiked }) => (
-              <Box
-                sx={{ display: "flex", alignItems: "center" }}
-                key={commentID}
-              >
-                <Typography fontSize={13} fontWeight={"bold"} mr={1}>
-                  {userName}
-                </Typography>
-                <Typography fontSize={13}>{text}</Typography>
-                <IconButton sx={{ ml: "auto" }}>
-                  {isLiked ? (
-                    <FavoriteIcon color="secondary" sx={{ fontSize: 15 }} />
-                  ) : (
-                    <FavoriteBorderIcon
-                      color="secondary"
-                      sx={{ fontSize: 15 }}
-                    />
-                  )}
-                </IconButton>
-              </Box>
-            ))}
+          {mdView
+            ? comments
+                ?.slice(0, 2)
+                ?.map(({ userName, text, commentID, isLiked }) => (
+                  <Box
+                    sx={{ display: "flex", alignItems: "center" }}
+                    key={commentID}
+                  >
+                    <Typography
+                      fontSize={mdView ? 15 : 12}
+                      fontWeight={"bold"}
+                      mr={1}
+                    >
+                      {userName}
+                    </Typography>
+                    <Typography fontSize={mdView ? 15 : 12}>{text}</Typography>
+                    <IconButton sx={{ ml: "auto" }}>
+                      {isLiked ? (
+                        <FavoriteIcon
+                          color="secondary"
+                          sx={{ fontSize: mdView ? 15 : 12 }}
+                        />
+                      ) : (
+                        <FavoriteBorderIcon
+                          color="secondary"
+                          sx={{ fontSize: mdView ? 15 : 12 }}
+                        />
+                      )}
+                    </IconButton>
+                  </Box>
+                ))
+            : null}
 
-          <Typography variant="caption" mt={1} sx={{ color: "grey" }}>
+          <Typography variant="caption" mt={0.5} sx={{ color: "grey" }}>
             {moment(created_at).fromNow()}
           </Typography>
         </CardContent>
@@ -263,23 +300,20 @@ const CustomPostCard = (props: CustomPostCardProps) => {
           sx={{
             backgroundColor: appTheme.palette.primary.dark,
             color: appTheme.palette.primary.contrastText,
-            height: 50,
+            height: { xs: 40, md: 50 },
             flex: 1,
             width: "100%",
             p: 1,
             m: "0px !important",
-            ".css-1uqfcdx-MuiButtonBase-root-MuiButton-root:hover": {
-              border: `1px solid ${appTheme.palette.primary.contrastText}`,
-              // boxShadow: "0px -1px 40px 0px rgba(0,0,0,0.75)",
-            },
+            fontSize: { xs: "0.8rem", md: "1rem" },
           }}
           endAdornment={
             <CustomBotton
-              variant="outlined"
+              variant="text"
               label="Post "
               sx={{
-                borderColor: appTheme.palette.primary.contrastText,
                 color: appTheme.palette.primary.contrastText,
+                fontSize: { xs: "0.7rem", md: "0.875rem" },
               }}
             />
           }
