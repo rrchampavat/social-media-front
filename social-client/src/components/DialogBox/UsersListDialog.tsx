@@ -13,7 +13,8 @@ import {
 } from "@mui/material";
 import appTheme from "../../utils/theme";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
-import CustomBotton from "../CustomBotton";
+import CustomButton from "../CustomButton";
+import { FC } from "react";
 
 interface USER {
   userId: string;
@@ -30,7 +31,7 @@ interface UserListDialogProps {
   data: Array<USER>;
 }
 
-const UsersListDialog = (props: UserListDialogProps) => {
+const UsersListDialog: FC<UserListDialogProps> = (props) => {
   const { data, handleClose, open, title } = props;
 
   const isMDView = useMediaQuery("(min-width:600px)");
@@ -99,7 +100,7 @@ const UsersListDialog = (props: UserListDialogProps) => {
             <ListItem
               sx={{ p: 0 }}
               secondaryAction={
-                <CustomBotton
+                <CustomButton
                   label={
                     user.userType === "Following"
                       ? user.userType

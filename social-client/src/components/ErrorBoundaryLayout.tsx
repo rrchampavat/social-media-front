@@ -1,7 +1,7 @@
 import { Box, Typography } from "@mui/material";
 import { FC, ReactNode } from "react";
 import { ErrorBoundary } from "react-error-boundary";
-import CustomBotton from "./CustomBotton";
+import CustomButton from "./CustomButton";
 
 interface ErrorFallbackProps {
   error: Error;
@@ -25,7 +25,7 @@ const ErrorFallback: FC<ErrorFallbackProps> = ({
     <Typography color="red" my={1}>
       {error.message}
     </Typography>
-    <CustomBotton
+    <CustomButton
       label="Try Again"
       variant="contained"
       handleClick={resetErrorBoundary}

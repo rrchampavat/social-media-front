@@ -6,6 +6,7 @@ import {
   Menu,
   MenuItem,
 } from "@mui/material";
+import { FC } from "react";
 import { useNavigate } from "react-router-dom";
 import { menuPosition } from "../utils/objectMappers";
 import appTheme from "../utils/theme";
@@ -25,7 +26,7 @@ interface MenuListProps {
   Icon?: any;
 }
 
-const CustomMenu = (props: CustomMenuProps) => {
+const CustomMenu: FC<CustomMenuProps> = (props) => {
   const { menuList, open, handleClose, sx, anchorEl, menuAt } = props;
 
   const navigate = useNavigate();

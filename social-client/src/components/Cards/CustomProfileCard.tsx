@@ -7,6 +7,7 @@ import {
   Paper,
   Typography,
 } from "@mui/material";
+import { FC } from "react";
 import { flexMiddle } from "../../assets/commonStyles";
 import appTheme from "../../utils/theme";
 
@@ -21,7 +22,7 @@ interface CustomProfileCardProps {
   sx: object;
 }
 
-const CustomProfileCard = (props: CustomProfileCardProps) => {
+const CustomProfileCard: FC<CustomProfileCardProps> = (props) => {
   const {
     userName,
     fullName,

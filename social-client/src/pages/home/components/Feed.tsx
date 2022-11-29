@@ -30,19 +30,21 @@ const Feed = () => {
   return (
     <Box>
       {feedPosts?.map((post: POST) => (
-        <CustomPostCard
-          userName={post.userName}
-          image={post.image}
-          caption={post.caption}
-          comments={post.comments}
-          userAvatar={post.userAvatar}
-          isLiked={post.isLiked}
-          postID={post.postID}
-          likeCount={post.likeCount}
-          location={post.location}
-          created_at={post.created_at}
-          handleClick={() => handleClick(post)}
-        />
+        <Box key={post.postID}>
+          <CustomPostCard
+            userName={post.userName}
+            image={post.image}
+            caption={post.caption}
+            comments={post.comments}
+            userAvatar={post.userAvatar}
+            isLiked={post.isLiked}
+            postID={post.postID}
+            likeCount={post.likeCount}
+            location={post.location}
+            created_at={post.created_at}
+            handleClick={() => handleClick(post)}
+          />
+        </Box>
       ))}
 
       <PostDialog

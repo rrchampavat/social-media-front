@@ -1,3 +1,4 @@
+import { FC, ReactElement, useState } from "react";
 import {
   Avatar,
   AvatarGroup,
@@ -17,14 +18,13 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import CommentIcon from "@mui/icons-material/Comment";
 import SendIcon from "@mui/icons-material/Send";
 import { Box } from "@mui/system";
-import { ReactElement, useState } from "react";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import CustomMenu from "../CustomMenu";
 import { COMMENT, postMenus } from "../../utils/constants";
 import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
 import BookmarkBorderOutlinedIcon from "@mui/icons-material/BookmarkBorderOutlined";
 import appTheme from "../../utils/theme";
-import CustomBotton from "../CustomBotton";
+import CustomButton from "../CustomButton";
 import moment from "moment";
 
 interface CustomPostCardProps {
@@ -41,7 +41,7 @@ interface CustomPostCardProps {
   handleClick: any;
 }
 
-const CustomPostCard = (props: CustomPostCardProps) => {
+const CustomPostCard: FC<CustomPostCardProps> = (props) => {
   const {
     postID,
     userName,
@@ -308,7 +308,7 @@ const CustomPostCard = (props: CustomPostCardProps) => {
             fontSize: { xs: "0.8rem", md: "1rem" },
           }}
           endAdornment={
-            <CustomBotton
+            <CustomButton
               variant="text"
               label="Post "
               sx={{

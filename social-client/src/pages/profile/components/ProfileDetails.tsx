@@ -7,7 +7,7 @@ import {
   Typography,
   useMediaQuery,
 } from "@mui/material";
-import CustomBotton from "../../../components/CustomBotton";
+import CustomButton from "../../../components/CustomButton";
 import { flexMiddle } from "../../../assets/commonStyles";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import { useSelector } from "react-redux";
@@ -60,7 +60,7 @@ const ProfileDetails = () => {
               </IconButton>
             </Box>
 
-            <CustomBotton
+            <CustomButton
               variant="outlined"
               label="Edit Profile"
               handleClick={() => {}}
@@ -90,7 +90,7 @@ const ProfileDetails = () => {
           </Typography>
 
           <Box whiteSpace={"nowrap"}>
-            <CustomBotton
+            <CustomButton
               variant="outlined"
               label="Edit Profile"
               handleClick={() => {}}
