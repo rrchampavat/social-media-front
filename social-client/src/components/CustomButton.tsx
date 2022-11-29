@@ -1,15 +1,17 @@
 import { Button } from "@mui/material";
+import { FC } from "react";
 
 interface ButtonProps {
+  label: string;
   variant: "text" | "outlined" | "contained" | undefined;
   disabled?: boolean;
   handleClick?: any;
-  label: string;
   size?: "medium" | "small" | "large" | undefined;
   sx?: object;
+  type?: "button" | "submit" | "reset";
 }
 
-const CustomBotton = (props: ButtonProps) => {
+const CustomButton: FC<ButtonProps> = (props) => {
   const {
     variant,
     disabled = false,
@@ -17,6 +19,7 @@ const CustomBotton = (props: ButtonProps) => {
     label,
     size = "medium",
     sx,
+    type = "button",
   } = props;
 
   return (
@@ -26,10 +29,11 @@ const CustomBotton = (props: ButtonProps) => {
       onClick={handleClick}
       size={size}
       sx={sx}
+      type={type}
     >
       {label}
     </Button>
   );
 };
 
-export default CustomBotton;
+export default CustomButton;

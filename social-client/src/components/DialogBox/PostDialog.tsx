@@ -1,3 +1,4 @@
+import { FC } from "react";
 import {
   Avatar,
   AvatarGroup,
@@ -27,7 +28,7 @@ import BookmarkBorderOutlinedIcon from "@mui/icons-material/BookmarkBorderOutlin
 
 import { COMMENT } from "../../utils/constants";
 import appTheme from "../../utils/theme";
-import CustomBotton from "../CustomBotton";
+import CustomButton from "../CustomButton";
 import moment from "moment";
 import { POST } from "../../redux/post/postTypes";
 
@@ -37,7 +38,7 @@ interface PostDialogProps {
   post: POST;
 }
 
-const PostDialog = (props: PostDialogProps) => {
+const PostDialog: FC<PostDialogProps> = (props) => {
   const { open, onClose, post } = props;
 
   const mdView = useMediaQuery("(min-width:600px)");
@@ -365,7 +366,7 @@ const PostDialog = (props: PostDialogProps) => {
                 m: "0px !important",
               }}
               endAdornment={
-                <CustomBotton
+                <CustomButton
                   variant="text"
                   label="Post "
                   sx={{

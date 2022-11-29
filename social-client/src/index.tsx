@@ -7,19 +7,22 @@ import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import { store } from "./redux/store";
 import { Box } from "@mui/material";
+import { CookiesProvider } from "react-cookie";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 root.render(
   // <React.StrictMode>
-  <BrowserRouter>
-    <Provider store={store}>
-      <Suspense fallback={<Box>Loading</Box>}>
-        <App />
-      </Suspense>
-    </Provider>
-  </BrowserRouter>
+  <CookiesProvider>
+    <BrowserRouter>
+      <Provider store={store}>
+        <Suspense fallback={<Box>Loading</Box>}>
+          <App />
+        </Suspense>
+      </Provider>
+    </BrowserRouter>
+  </CookiesProvider>
   // </React.StrictMode>
 );
 
