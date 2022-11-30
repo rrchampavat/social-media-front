@@ -43,6 +43,21 @@ export const postMenus = [
   { label: "Report", onclick: () => console.log("Report"), icon: ReportIcon },
 ];
 
+export const settingsMenu = [
+  { title: "Edit Profile" },
+  { title: "Change Password" },
+  { title: "Apps and websites" },
+  { title: "Email notifications" },
+  { title: "Push notifications" },
+  { title: "Manage contacts" },
+  { title: "Privacy and security" },
+  { title: "Supervision" },
+  { title: "Login activity" },
+  // { title: "Emails from !SOCIAL" },
+  { title: "Help" },
+  { title: "Digital collectibles" },
+];
+
 // faker.seed(123);
 
 export const createUser = () => {

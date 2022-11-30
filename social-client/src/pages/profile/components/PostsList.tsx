@@ -14,7 +14,7 @@ import { useDispatch, useSelector } from "react-redux";
 import PostDialog from "../../../components/DialogBox/PostDialog";
 import { POST } from "../../../redux/post/postTypes";
 import { getUserPosts } from "../../../redux/user/userActions";
-import { initialPostState } from "../../../utils/initialStates";
+import { postInitialState } from "../../../utils/initialStates";
 import appTheme from "../../../utils/theme";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
@@ -29,7 +29,7 @@ const PostsList = () => {
   const [userPosts, setUserPosts] = useState<Array<POST>>([]);
   const [activeTab, setActiveTab] = useState<string>("Posts");
   const [openDialog, setOpenDialog] = useState<boolean>(false);
-  const [selectedPost, setSelectedPost] = useState<POST>(initialPostState);
+  const [selectedPost, setSelectedPost] = useState<POST>(postInitialState);
 
   useEffect(() => {
     setUserPosts(posts);
