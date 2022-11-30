@@ -5,7 +5,7 @@ import CustomPostCard from "../../../components/Cards/CustomPostCard";
 import PostDialog from "../../../components/DialogBox/PostDialog";
 import { getPosts } from "../../../redux/post/postActions";
 import { POST } from "../../../redux/post/postTypes";
-import { initialPostState } from "../../../utils/initialStates";
+import { postInitialState } from "../../../utils/initialStates";
 
 const Feed = () => {
   const dispatch = useDispatch();
@@ -13,7 +13,7 @@ const Feed = () => {
 
   const [feedPosts, setFeedPosts] = useState<Array<POST>>([]);
   const [openDialog, setOpenDialog] = useState<boolean>(false);
-  const [selectedPost, setSelectedPost] = useState<POST>(initialPostState);
+  const [selectedPost, setSelectedPost] = useState<POST>(postInitialState);
 
   useEffect(() => {
     setFeedPosts(posts);

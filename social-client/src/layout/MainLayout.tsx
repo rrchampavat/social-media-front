@@ -1,6 +1,5 @@
 import { Box } from "@mui/material";
 import { Navigate, Outlet } from "react-router-dom";
-import appTheme from "../utils/theme";
 import Header from "./header";
 import WaveSvg from "../assets/svg/MainBackground.svg";
 import { useCookies } from "react-cookie";
@@ -15,8 +14,6 @@ const MainLayout = () => {
   return (
     <Box
       sx={{
-        bgcolor: appTheme.palette.primary.contrastText,
-        backgroundColor: appTheme.palette.primary.contrastText,
         backgroundImage: `url(${WaveSvg})`,
         backgroundSize: "cover",
         backgroundRepeat: "no-repeat",
@@ -24,7 +21,9 @@ const MainLayout = () => {
       }}
     >
       <Header />
-      <Outlet />
+      <Box sx={{ minHeight: "89.7vh" }}>
+        <Outlet />
+      </Box>
     </Box>
   );
 };

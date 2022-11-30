@@ -7,6 +7,7 @@ const Signup = lazy(() => import("../pages/auth/Signup"));
 const MainLayout = lazy(() => import("../layout/MainLayout"));
 const AuthLayout = lazy(() => import("../layout/AuthLayout"));
 const Error404 = lazy(() => import("../pages/error/Error404"));
+const Settings = lazy(() => import("../pages/Settings"));
 
 const Router = [
   {
@@ -15,6 +16,7 @@ const Router = [
     children: [
       { path: "/", element: <Home /> },
       { path: "/profile", element: <Profile /> },
+      { path: "/settings", element: <Settings /> },
       {
         path: "*",
         element: <Error404 />,

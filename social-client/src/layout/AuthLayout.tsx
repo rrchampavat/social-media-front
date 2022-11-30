@@ -21,7 +21,6 @@ const AuthLayout = () => {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        backgroundColor: appTheme.palette.primary.contrastText,
         backgroundImage: `url(${WaveSvg})`,
         backgroundSize: "cover",
       }}
