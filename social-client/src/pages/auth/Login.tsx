@@ -1,20 +1,8 @@
-import React, { useState } from "react";
-import {
-  Box,
-  CardActions,
-  CardContent,
-  FormControl,
-  FormHelperText,
-  IconButton,
-  Input,
-  InputAdornment,
-  InputLabel,
-  Link,
-  TextField,
-  Typography,
-} from "@mui/material";
+import { useState } from "react";
+import { Box, CardActions, CardContent, Link, Typography } from "@mui/material";
 import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined";
+import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 
 import appTheme from "../../utils/theme";
 import CustomButton from "../../components/CustomButton";
@@ -22,6 +10,7 @@ import { useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
 import { useFormik } from "formik";
 import { loginSchema } from "../../utils/validationSchemas";
+import CustomTextField from "../../components/DialogBox/CustomTextField";
 
 const formInitialState = {
   emailOrPhone: "",
@@ -35,7 +24,7 @@ interface FormValues {
 
 const Login = () => {
   const navigate = useNavigate();
-  const [cookies, setCookies] = useCookies(["user"]);
+  const [, setCookies] = useCookies(["user"]);
 
   const [showPassword, setShowPassword] = useState<boolean>(false);
 
@@ -90,24 +79,31 @@ const Login = () => {
               justifyContent: "center",
             }}
           >
-            <TextField
-              variant="standard"
-              name="emailOrPhone"
+            <CustomTextField
+              label="Email address or phone number"
               type="text"
-              label="Username, email or mobile no."
-              fullWidth
+              name="emailOrPhone"
               value={values.emailOrPhone}
               onChange={handleChange}
               onBlur={handleBlur}
-              error={touched.emailOrPhone && Boolean(errors.emailOrPhone)}
-              helperText={touched.emailOrPhone && errors.emailOrPhone}
+              showError={touched.emailOrPhone && Boolean(errors.emailOrPhone)}
+              showEndAdornment={
+                Boolean(touched.emailOrPhone) && Boolean(errors.emailOrPhone)
+              }
+              endAdornmentItem={<InfoOutlinedIcon />}
+              hasTooltip={true}
+              tooltipPlacement="right"
+              tooltipMsg={
+                touched.emailOrPhone && errors.emailOrPhone
+                  ? errors.emailOrPhone
+                  : null
+              }
               sx={{
-                bgcolor: appTheme.palette.primary.contrastText,
-                borderRadius: "4.2px 4.2px 0px 0px",
                 ".css-1xavmop-MuiFormLabel-root-MuiInputLabel-root": {
                   fontSize: { xs: "0.9rem", md: "1rem" },
                 },
               }}
+              endAdornmentItemColor={appTheme.palette.secondary.main}
             />
           </CardContent>
 
@@ -117,48 +113,35 @@ const Login = () => {
               justifyContent: "center",
             }}
           >
-            <FormControl
-              variant="standard"
-              fullWidth
-              error={touched.password && Boolean(errors.password)}
+            <CustomTextField
+              label="Password"
+              type={showPassword ? "text" : "password"}
+              name="password"
+              value={values.password}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              onEndAdornmentClick={() => setShowPassword(!showPassword)}
+              showError={touched.password && Boolean(errors.password)}
+              showEndAdornment={true}
+              endAdornmentItem={
+                showPassword ? (
+                  <VisibilityOffOutlinedIcon />
+                ) : (
+                  <VisibilityOutlinedIcon />
+                )
+              }
+              hasTooltip={true}
+              tooltipPlacement="right"
+              helperText={
+                touched.password && errors.password ? errors.password : null
+              }
               sx={{
                 ".css-1xavmop-MuiFormLabel-root-MuiInputLabel-root": {
                   fontSize: { xs: "0.9rem", md: "1rem" },
                 },
               }}
-            >
-              <InputLabel htmlFor="filled-adornment-password">
-                Password
-              </InputLabel>
-
-              <Input
-                type={showPassword ? "text" : "password"}
-                // value={values.password}
-                onChange={handleChange}
-                name="password"
-                value={values.password}
-                onBlur={handleBlur}
-                endAdornment={
-                  <InputAdornment position="end">
-                    <IconButton
-                      aria-label="toggle password visibility"
-                      onClick={() => setShowPassword(!showPassword)}
-                      //   onMouseDown={handleMouseDownPassword}
-                      edge="end"
-                    >
-                      {showPassword ? (
-                        <VisibilityOffOutlinedIcon />
-                      ) : (
-                        <VisibilityOutlinedIcon />
-                      )}
-                    </IconButton>
-                  </InputAdornment>
-                }
-              />
-              <FormHelperText sx={{ color: "red" }}>
-                {touched.password && errors.password}
-              </FormHelperText>
-            </FormControl>
+              endAdornmentItemColor={appTheme.palette.primary.dark}
+            />
           </CardContent>
 
           <CardActions sx={{ justifyContent: "center" }}>
