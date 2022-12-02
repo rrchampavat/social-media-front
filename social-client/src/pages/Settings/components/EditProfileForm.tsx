@@ -1,7 +1,8 @@
-import { Avatar, Box, Grid, TextField, Typography } from "@mui/material";
+import { Avatar, Box, Grid, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import CustomButton from "../../../components/CustomButton";
+import CustomTextField from "../../../components/DialogBox/CustomTextField";
 import { USER } from "../../../redux/user/userTypes";
 import { userInitialState } from "../../../utils/initialStates";
 
@@ -42,10 +43,11 @@ const EditProfileForm = () => {
         </Grid>
 
         <Grid item width={"50%"}>
-          <TextField
+          <CustomTextField
             type="text"
-            disabled
-            fullWidth
+            variant="outlined"
+            disabled={true}
+            fullWidth={true}
             value={profile.fullName}
             sx={{
               ".css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input": {
@@ -74,10 +76,11 @@ const EditProfileForm = () => {
         </Grid>
 
         <Grid item width={"50%"}>
-          <TextField
+          <CustomTextField
             type="text"
+            variant="outlined"
+            fullWidth={true}
             value={profile.username}
-            fullWidth
             sx={{
               ".css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input": {
                 p: "6.5px 14px",
@@ -105,12 +108,13 @@ const EditProfileForm = () => {
         </Grid>
 
         <Grid item width={"50%"}>
-          <TextField
+          <CustomTextField
             type="text"
+            variant="outlined"
             // @ts-ignore
             value={profile.website || "Website"}
-            fullWidth
-            disabled
+            fullWidth={true}
+            disabled={false}
             sx={{
               ".css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input": {
                 p: "6.5px 14px",
@@ -132,14 +136,15 @@ const EditProfileForm = () => {
         </Grid>
 
         <Grid item width={"50%"}>
-          <TextField
+          <CustomTextField
             type="text"
+            variant="outlined"
             value={profile.bio}
             fullWidth
             multiline
             maxRows={4}
             sx={{
-              ".css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input": {
+              ".css-e2dmp6-MuiInputBase-root-MuiOutlinedInput-root": {
                 p: "6.5px 14px",
               },
             }}
@@ -172,15 +177,14 @@ const EditProfileForm = () => {
         </Grid>
 
         <Grid item width={"50%"}>
-          <TextField
+          <CustomTextField
             type="email"
+            variant="outlined"
             // @ts-ignore
             value={profile.email || "example@gmail.com"}
-            fullWidth
-            multiline
-            maxRows={4}
+            fullWidth={true}
             sx={{
-              ".css-e2dmp6-MuiInputBase-root-MuiOutlinedInput-root": {
+              ".css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input": {
                 p: "6.5px 14px",
               },
             }}
@@ -196,15 +200,14 @@ const EditProfileForm = () => {
         </Grid>
 
         <Grid item width={"50%"}>
-          <TextField
+          <CustomTextField
             type="tel"
+            variant="outlined"
             // @ts-ignore
             value={profile.phone || "+91 0000000000"}
-            fullWidth
-            multiline
-            maxRows={4}
+            fullWidth={true}
             sx={{
-              ".css-e2dmp6-MuiInputBase-root-MuiOutlinedInput-root": {
+              ".css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input": {
                 p: "6.5px 14px",
               },
             }}
@@ -220,15 +223,13 @@ const EditProfileForm = () => {
         </Grid>
 
         <Grid item width={"50%"}>
-          <TextField
+          <CustomTextField
             type="text"
+            variant="outlined"
             // @ts-ignore
             value={profile.gender || "N/A"}
-            fullWidth
-            multiline
-            maxRows={4}
             sx={{
-              ".css-e2dmp6-MuiInputBase-root-MuiOutlinedInput-root": {
+              ".css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input": {
                 p: "6.5px 14px",
               },
             }}

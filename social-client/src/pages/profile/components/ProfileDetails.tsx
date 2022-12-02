@@ -16,10 +16,13 @@ import UsersListDialog from "../../../components/DialogBox/UsersListDialog";
 import { createUsers } from "../../../utils/constants";
 import { faker } from "@faker-js/faker";
 import { USER } from "../../../redux/user/userTypes";
+import { useNavigate } from "react-router-dom";
 
 const users = createUsers(20);
 
 const ProfileDetails = () => {
+  const navigate = useNavigate();
+
   const { user } = useSelector((state: any) => state.UserReducer);
 
   const [header, setHeader] = useState<string>("");
@@ -90,7 +93,7 @@ const ProfileDetails = () => {
           </Typography>
 
           <Box whiteSpace={"nowrap"}>
-            <CustomButton
+            {/* <CustomButton
               variant="outlined"
               label="Edit Profile"
               handleClick={() => {}}
@@ -100,8 +103,9 @@ const ProfileDetails = () => {
                 borderColor: appTheme.palette.primary.dark,
                 mx: 2,
               }}
-            />
+            /> */}
             <IconButton
+              onClick={() => navigate("/settings")}
               sx={{
                 color: appTheme.palette.primary.dark,
               }}
