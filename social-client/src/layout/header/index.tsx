@@ -48,7 +48,7 @@ const Header = () => {
       elevation={5}
       sx={{
         height: { xs: 50, md: 100 },
-        width: "100%",
+        // width: "100%",
         display: "flex",
         justifyContent: "space-between",
         alignItems: "center",
