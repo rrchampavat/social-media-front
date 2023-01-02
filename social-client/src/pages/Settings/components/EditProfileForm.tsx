@@ -26,7 +26,7 @@ const EditProfileForm = () => {
         </Grid>
 
         <Grid item direction={"column"} width="50%">
-          <Typography variant="h6">{profile.username}</Typography>
+          <Typography variant="h6">{profile.userName}</Typography>
           <CustomButton
             label="Change profile photo"
             variant="text"
@@ -80,7 +80,7 @@ const EditProfileForm = () => {
             type="text"
             variant="outlined"
             fullWidth={true}
-            value={profile.username}
+            value={profile.userName}
             sx={{
               ".css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input": {
                 p: "6.5px 14px",

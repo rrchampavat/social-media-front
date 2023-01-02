@@ -13,12 +13,12 @@ import { SyntheticEvent, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import PostDialog from "../../../components/DialogBox/PostDialog";
 import { POST } from "../../../redux/post/postTypes";
-import { getUserPosts } from "../../../redux/user/userActions";
 import { postInitialState } from "../../../utils/initialStates";
 import appTheme from "../../../utils/theme";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import CameraAltOutlinedIcon from "@mui/icons-material/CameraAltOutlined";
+import { getUserPosts } from "../../../redux/post/postActions";
 
 const PostsList = () => {
   const dispatch = useDispatch();

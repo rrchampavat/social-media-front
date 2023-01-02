@@ -15,8 +15,8 @@ export const postInitialState: POST = {
 };
 
 export const userInitialState: USER = {
-  userId: "",
-  username: "",
+  // userId: "",
+  userName: "",
   avatar: "",
   fullName: "",
   postCount: 0,

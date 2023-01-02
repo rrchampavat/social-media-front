@@ -8,6 +8,7 @@ import ContentCopyOutlinedIcon from "@mui/icons-material/ContentCopyOutlined";
 import { faker } from "@faker-js/faker";
 import { USER } from "../redux/user/userTypes";
 import { POST } from "../redux/post/postTypes";
+import Cookies from "js-cookie";
 
 export const profileMenu = [
   {
@@ -20,7 +21,11 @@ export const profileMenu = [
     icon: SettingsIcon,
     navigateTo: "/settings",
   },
-  { label: "Logout", onclick: () => console.log("Logout"), icon: LogoutIcon },
+  {
+    label: "Logout",
+    onclick: () => Cookies.remove("accessToken"),
+    icon: LogoutIcon,
+  },
 ];
 
 export const postMenus = [
@@ -63,7 +68,7 @@ export const settingsMenu = [
 export const createUser = () => {
   let user: USER = {
     userId: faker.datatype.uuid(),
-    username: faker.internet.userName(),
+    userName: faker.internet.userName(),
     avatar: faker.image.avatar(),
     fullName: faker.name.fullName(),
     postCount: faker.datatype.number({ min: 5, max: 20 }),

@@ -7,7 +7,9 @@ import {
   MenuItem,
 } from "@mui/material";
 import { FC } from "react";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { logout } from "../redux/auth/authActions";
 import { menuPosition } from "../utils/objectMappers";
 import appTheme from "../utils/theme";
 
@@ -28,12 +30,18 @@ interface MenuListProps {
 
 const CustomMenu: FC<CustomMenuProps> = (props) => {
   const { menuList, open, handleClose, sx, anchorEl, menuAt } = props;
+  const dispatch = useDispatch();
 
   const navigate = useNavigate();
 
   const handleAction = (navigateTo: string | undefined) => {
     navigateTo && navigate(navigateTo);
     handleClose();
+  };
+
+  const handleLogout = () => {
+    dispatch(logout());
+    navigate("/auth/login", { replace: true });
   };
 
   const position = menuPosition(menuAt);
@@ -50,7 +58,11 @@ const CustomMenu: FC<CustomMenuProps> = (props) => {
       {menuList?.map(({ label, navigateTo, Icon }: MenuListProps, id) => (
         <Box key={id}>
           <MenuItem
-            onClick={() => handleAction(navigateTo)}
+            onClick={
+              label === "Logout"
+                ? () => handleLogout()
+                : () => handleAction(navigateTo)
+            }
             sx={{
               py: { xs: 0, md: 0.75 },
               px: { xs: 1, md: 2 },

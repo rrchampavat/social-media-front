@@ -8,10 +8,14 @@ import { Provider } from "react-redux";
 import { store } from "./redux/store";
 import { Box } from "@mui/material";
 import { CookiesProvider } from "react-cookie";
+import { injectStore } from "./utils/api";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
+
+injectStore(store);
+
 root.render(
   // <React.StrictMode>
   <CookiesProvider>

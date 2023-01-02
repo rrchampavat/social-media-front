@@ -2,6 +2,9 @@ import {
   GET_POSTS_FAIL,
   GET_POSTS_REQUEST,
   GET_POSTS_SUCCESS,
+  GET_USER_POSTS_FAIL,
+  GET_USER_POSTS_REQUEST,
+  GET_USER_POSTS_SUCCESS,
 } from "./postActionTypes";
 import { POST } from "./postTypes";
 
@@ -23,5 +26,26 @@ export const getPostsFail = (data: any) => {
   return {
     type: GET_POSTS_FAIL,
     paylaod: data,
+  };
+};
+
+export const getUserPosts = (data: number) => {
+  return {
+    type: GET_USER_POSTS_REQUEST,
+    payload: data,
+  };
+};
+
+export const getUserPostsSuccess = (data: POST[]) => {
+  return {
+    type: GET_USER_POSTS_SUCCESS,
+    payload: data,
+  };
+};
+
+export const getUserPostsFail = (data: any) => {
+  return {
+    type: GET_USER_POSTS_FAIL,
+    payload: data,
   };
 };

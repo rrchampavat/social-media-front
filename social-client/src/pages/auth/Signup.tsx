@@ -12,8 +12,9 @@ import {
   emailSignupSchema,
   phoneSignupSchema,
 } from "../../utils/validationSchemas";
-import { useCookies } from "react-cookie";
 import CustomTextField from "../../components/DialogBox/CustomTextField";
+import { register } from "../../redux/auth/authActions";
+import { useDispatch } from "react-redux";
 
 const formInitialState = {
   emailOrPhone: "",
@@ -33,15 +34,19 @@ interface FormValues {
 
 const Signup = () => {
   const navigate = useNavigate();
-  const [, setCookies] = useCookies(["user"]);
+  const dispatch = useDispatch();
 
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [isPhone, setIsPhone] = useState<boolean>(false);
 
   const handleSignup = (values: FormValues) => {
-    console.log(values);
-    navigate("/");
-    setCookies("user", JSON.stringify(values), { path: "/" });
+    const newData = {
+      "userName": values.userName,
+      "fullName": values.fullName,
+      "password": values.password,
+    };
+
+    dispatch(register(newData));
   };
 
   const checkInput = (value: string) => {

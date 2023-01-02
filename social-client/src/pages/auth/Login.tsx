@@ -6,30 +6,41 @@ import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 
 import appTheme from "../../utils/theme";
 import CustomButton from "../../components/CustomButton";
-import { useNavigate } from "react-router-dom";
-import { useCookies } from "react-cookie";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import { loginSchema } from "../../utils/validationSchemas";
 import CustomTextField from "../../components/DialogBox/CustomTextField";
+import { useDispatch } from "react-redux";
+import { login } from "../../redux/auth/authActions";
 
 const formInitialState = {
-  emailOrPhone: "",
+  userName: "",
   password: "",
 };
 
 interface FormValues {
-  emailOrPhone: string | number;
+  userName: string;
   password: string;
 }
 
 const Login = () => {
   const navigate = useNavigate();
-  const [, setCookies] = useCookies(["user"]);
+  const dispatch = useDispatch();
+  const location = useLocation();
+  const from = location?.state?.from?.pathname || "/";
 
   const [showPassword, setShowPassword] = useState<boolean>(false);
 
   const handleLogin = (values: FormValues) => {
-    setCookies("user", JSON.stringify(values), { path: "/" });
+    dispatch(
+      login({
+        data: values,
+        callback: () =>
+          navigate(from, {
+            replace: true,
+          }),
+      })
+    );
   };
 
   const formik = useFormik({
@@ -82,21 +93,19 @@ const Login = () => {
             <CustomTextField
               label="Email address or phone number"
               type="text"
-              name="emailOrPhone"
-              value={values.emailOrPhone}
+              name="userName"
+              value={values.userName}
               onChange={handleChange}
               onBlur={handleBlur}
-              showError={touched.emailOrPhone && Boolean(errors.emailOrPhone)}
+              showError={touched.userName && Boolean(errors.userName)}
               showEndAdornment={
-                Boolean(touched.emailOrPhone) && Boolean(errors.emailOrPhone)
+                Boolean(touched.userName) && Boolean(errors.userName)
               }
               endAdornmentItem={<InfoOutlinedIcon />}
               hasTooltip={true}
               tooltipPlacement="right"
               tooltipMsg={
-                touched.emailOrPhone && errors.emailOrPhone
-                  ? errors.emailOrPhone
-                  : null
+                touched.userName && errors.userName ? errors.userName : null
               }
               sx={{
                 ".css-1xavmop-MuiFormLabel-root-MuiInputLabel-root": {
