@@ -35,6 +35,6 @@ export const phoneSignupSchema = baseSignUpSchema.concat(
 );
 
 export const loginSchema = Yup.object({
-  emailOrPhone: Yup.string().required("Email or phone required"),
+  userName: Yup.string().required("Email or phone required"),
   password: Yup.string().required("Password is required"),
 });

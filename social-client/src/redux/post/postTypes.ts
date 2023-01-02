@@ -3,6 +3,9 @@ import {
   GET_POSTS_FAIL,
   GET_POSTS_REQUEST,
   GET_POSTS_SUCCESS,
+  GET_USER_POSTS_FAIL,
+  GET_USER_POSTS_REQUEST,
+  GET_USER_POSTS_SUCCESS,
 } from "./postActionTypes";
 
 export interface POST {
@@ -47,4 +50,32 @@ export interface GetPostsFail {
   payload: GET_POSTS_FAIL_PAYLOAD;
 }
 
-export type postActions = GetPostsRequest | GetPostsSuccess | GetPostsFail;
+interface GET_USER_POSTS_SUCCESS_PAYLOAD {
+  posts: POST[];
+}
+
+interface GET_USER_POSTS_FAIL_PAYLOAD {
+  error: any;
+}
+
+interface GetUserPostsRequest {
+  type: typeof GET_USER_POSTS_REQUEST;
+}
+
+interface GetUserPostsSuccess {
+  type: typeof GET_USER_POSTS_SUCCESS;
+  payload: GET_USER_POSTS_SUCCESS_PAYLOAD;
+}
+
+interface GetUserPostsFail {
+  type: typeof GET_USER_POSTS_FAIL;
+  payload: GET_USER_POSTS_FAIL_PAYLOAD;
+}
+
+export type postActions =
+  | GetPostsRequest
+  | GetPostsSuccess
+  | GetPostsFail
+  | GetUserPostsRequest
+  | GetUserPostsSuccess
+  | GetUserPostsFail;

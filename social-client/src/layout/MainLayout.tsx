@@ -1,17 +1,15 @@
 import { Box } from "@mui/material";
-import { Navigate, Outlet } from "react-router-dom";
+import { Navigate, Outlet, useLocation } from "react-router-dom";
 import Header from "./header";
 import WaveSvg from "../assets/svg/MainBackground.svg";
-import { useCookies } from "react-cookie";
+import Cookies from "js-cookie";
 
 const MainLayout = () => {
-  const [cookies] = useCookies(["user"]);
+  const location = useLocation();
 
-  if (!cookies?.user?.password) {
-    return <Navigate to="/auth/login" />;
-  }
+  const accessToken = Cookies.get("accessToken");
 
-  return (
+  return accessToken ? (
     <Box
       sx={{
         backgroundImage: `url(${WaveSvg})`,
@@ -25,6 +23,8 @@ const MainLayout = () => {
         <Outlet />
       </Box>
     </Box>
+  ) : (
+    <Navigate to="/auth/login" state={{ from: location }} replace />
   );
 };
 

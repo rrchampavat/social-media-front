@@ -3,14 +3,14 @@ import { Navigate, Outlet } from "react-router-dom";
 import appTheme from "../utils/theme";
 
 import WaveSvg from "../assets/svg/AuthBackground.svg";
-import { useCookies } from "react-cookie";
+import Cookies from "js-cookie";
 
 const AuthLayout = () => {
   const isMDView = useMediaQuery("(min-width:600px)");
-  const [cookies] = useCookies(["user"]);
+  const cookie = Cookies.get("accessToken");
 
-  if (cookies?.user?.password) {
-    return <Navigate to="/" />;
+  if (cookie) {
+    return <Navigate to="/" replace />;
   }
 
   return (

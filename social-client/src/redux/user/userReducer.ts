@@ -1,8 +1,5 @@
 import {
   GET_USER_FAIL,
-  GET_USER_POSTS_FAIL,
-  GET_USER_POSTS_REQUEST,
-  GET_USER_POSTS_SUCCESS,
   GET_USER_REQUEST,
   GET_USER_SUCCESS,
 } from "./userActionTypes";
@@ -51,33 +48,6 @@ const UserReducer = (state = initialState, action: userActions) => {
         message: {
           type: messageType.error,
           text: "Error while getting user details !",
-        },
-      };
-
-    case GET_USER_POSTS_REQUEST:
-      return {
-        ...state,
-        loading: true,
-      };
-
-    case GET_USER_POSTS_SUCCESS:
-      return {
-        ...state,
-        loading: false,
-        posts: action.payload,
-        message: {
-          type: messageType.success,
-          text: "User posts fetched successfully !",
-        },
-      };
-
-    case GET_USER_POSTS_FAIL:
-      return {
-        ...state,
-        loading: false,
-        message: {
-          type: messageType.error,
-          text: "Error while fetching user posts !",
         },
       };
 
