@@ -1,5 +1,8 @@
 import { POST } from "../post/postTypes";
 import {
+  GET_PROFILE_FAIL,
+  GET_PROFILE_REQUEST,
+  GET_PROFILE_SUCCESS,
   GET_USER_FAIL,
   GET_USER_REQUEST,
   GET_USER_SUCCESS,
@@ -46,4 +49,33 @@ export interface GetUserFail {
   payload: GET_USER_FAIL_PAYLOAD;
 }
 
-export type userActions = GetUserRequest | GetUserSuccess | GetUserFail;
+interface GET_PROFILE_SUCCESS_PAYLOAD {
+  data: USER;
+  message: string;
+}
+
+export interface GET_PROFILE_FAIL_PAYLOAD {
+  error: any;
+}
+
+export interface GetProfileRequest {
+  type: typeof GET_PROFILE_REQUEST;
+}
+
+export interface GetProfileSuccess {
+  type: typeof GET_PROFILE_SUCCESS;
+  payload: GET_PROFILE_SUCCESS_PAYLOAD;
+}
+
+export interface GetProfileFail {
+  type: typeof GET_PROFILE_FAIL;
+  payload: GET_PROFILE_FAIL_PAYLOAD;
+}
+
+export type userActions =
+  | GetUserRequest
+  | GetUserSuccess
+  | GetUserFail
+  | GetProfileRequest
+  | GetProfileSuccess
+  | GetProfileFail;

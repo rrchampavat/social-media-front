@@ -1,4 +1,7 @@
 import {
+  GET_PROFILE_FAIL,
+  GET_PROFILE_REQUEST,
+  GET_PROFILE_SUCCESS,
   GET_USER_FAIL,
   GET_USER_REQUEST,
   GET_USER_SUCCESS,
@@ -42,6 +45,30 @@ const UserReducer = (state = initialState, action: userActions) => {
       };
 
     case GET_USER_FAIL:
+      return {
+        ...state,
+        loading: false,
+        message: {
+          type: messageType.error,
+          text: "Error while getting user details !",
+        },
+      };
+
+    case GET_PROFILE_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+
+    case GET_PROFILE_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        user: action.payload.data,
+        message: { type: messageType.success, text: action.payload.message },
+      };
+
+    case GET_PROFILE_FAIL:
       return {
         ...state,
         loading: false,
