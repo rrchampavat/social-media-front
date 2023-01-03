@@ -16,7 +16,7 @@ import CustomMenu from "../../components/CustomMenu";
 import { profileMenu } from "../../utils/constants";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getUser } from "../../redux/user/userActions";
+import { getProfile } from "../../redux/user/userActions";
 import appTheme from "../../utils/theme";
 import HomeIcon from "@mui/icons-material/Home";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
@@ -25,7 +25,7 @@ const Header = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const { user } = useSelector((state: any) => state.UserReducer);
+  const user = useSelector((state: any) => state.UserReducer.user);
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [openProfileMenu, setOpenProfileMenu] = useState<boolean>(false);
@@ -38,8 +38,8 @@ const Header = () => {
   };
 
   useEffect(() => {
-    if (!user?.userId) {
-      dispatch(getUser());
+    if (!user?.username) {
+      dispatch(getProfile());
     }
   }, [dispatch, user]);
 
