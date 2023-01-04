@@ -50,7 +50,7 @@ const PostDialog: FC<PostDialogProps> = (props) => {
     />
   ) : (
     <Avatar sx={{ width: { xs: 30, md: 40 }, height: { xs: 30, md: 40 } }}>
-      {post?.userName?.charAt(0)?.toUpperCase()}
+      {post?.user?.charAt(0)?.toUpperCase()}
     </Avatar>
   );
 
@@ -93,7 +93,7 @@ const PostDialog: FC<PostDialogProps> = (props) => {
       >
         <CardMedia
           component={"img"}
-          image={post?.image}
+          image={post?.imageURL}
           alt={"Card Image"}
           sx={{
             height: 800,
@@ -124,7 +124,7 @@ const PostDialog: FC<PostDialogProps> = (props) => {
                 <CloseOutlinedIcon />
               </IconButton>
             }
-            title={post?.userName}
+            title={post?.user}
             sx={{
               ".css-et1ao3-MuiTypography-root,.css-83ijpv-MuiTypography-root": {
                 color: appTheme.palette.primary.contrastText,
@@ -334,7 +334,7 @@ const PostDialog: FC<PostDialogProps> = (props) => {
                   fontWeight={"bold"}
                   sx={{ mr: 1 }}
                 >
-                  {post?.userName}
+                  {post?.user}
                 </Typography>
                 <Typography variant="body2" fontSize={mdView ? 15 : 12}>
                   {post?.caption}

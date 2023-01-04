@@ -5,6 +5,7 @@ import {
   GET_USER_FAIL,
   GET_USER_REQUEST,
   GET_USER_SUCCESS,
+  RESET_USER_REDUCER,
 } from "./userActionTypes";
 import { USER_STATE, userActions } from "./userTypes";
 
@@ -77,6 +78,9 @@ const UserReducer = (state = initialState, action: userActions) => {
           text: "Error while getting user details !",
         },
       };
+
+    case RESET_USER_REDUCER:
+      return initialState;
 
     default:
       return {

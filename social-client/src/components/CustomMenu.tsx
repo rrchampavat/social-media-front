@@ -9,7 +9,9 @@ import {
 import { FC } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { logout } from "../redux/auth/authActions";
+import { logout, resetAuthReducer } from "../redux/auth/authActions";
+import { resetPostReducer } from "../redux/post/postActions";
+import { resetUserReducer } from "../redux/user/userActions";
 import { menuPosition } from "../utils/objectMappers";
 import appTheme from "../utils/theme";
 
@@ -41,6 +43,9 @@ const CustomMenu: FC<CustomMenuProps> = (props) => {
 
   const handleLogout = () => {
     dispatch(logout());
+    dispatch(resetPostReducer());
+    dispatch(resetAuthReducer());
+    dispatch(resetUserReducer());
     navigate("/auth/login", { replace: true });
   };
 

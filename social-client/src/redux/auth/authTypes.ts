@@ -9,6 +9,7 @@ import {
   REGISTER_FAIL,
   REGISTER_REQUEST,
   REGISTER_SUCCESS,
+  RESET_AUTH_REDUCER,
 } from "./authActionTypes";
 
 export interface LOGIN_DATA {
@@ -101,6 +102,11 @@ interface LogoutSuccess {
 interface LogoutFail {
   type: typeof LOGOUT_FAIL;
 }
+
+interface ResetAuthReducer {
+  type: typeof RESET_AUTH_REDUCER;
+}
+
 export type authActions =
   | RegisterRequest
   | RegisterFail
@@ -110,4 +116,5 @@ export type authActions =
   | LoginFail
   | LogoutRequest
   | LogoutSuccess
-  | LogoutFail;
+  | LogoutFail
+  | ResetAuthReducer;

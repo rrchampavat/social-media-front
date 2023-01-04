@@ -18,11 +18,12 @@ import appTheme from "../../../utils/theme";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import CameraAltOutlinedIcon from "@mui/icons-material/CameraAltOutlined";
-import { getUserPosts } from "../../../redux/post/postActions";
+import { getPosts } from "../../../redux/post/postActions";
 
 const PostsList = () => {
   const dispatch = useDispatch();
-  const { posts, user } = useSelector((state: any) => state.UserReducer);
+  const { user } = useSelector((state: any) => state.UserReducer);
+  const { posts } = useSelector((state: any) => state.PostReducer);
 
   const isMDView = useMediaQuery("(min-width:600px)");
 
@@ -34,7 +35,7 @@ const PostsList = () => {
   useEffect(() => {
     setUserPosts(posts);
     if (!posts?.length) {
-      dispatch(getUserPosts(user?.postCount));
+      dispatch(getPosts());
     }
   }, [posts, dispatch, user]);
 
@@ -63,9 +64,9 @@ const PostsList = () => {
         rowHeight={isMDView ? 230 : 120}
         gap={isMDView ? 10 : 4}
       >
-        {userPosts?.map((post) => (
-          <ImageListItem key={post?.postID} onClick={() => handleClick(post)}>
-            <img src={post?.image} alt="Post" />
+        {userPosts?.map((post, id) => (
+          <ImageListItem key={id} onClick={() => handleClick(post)}>
+            <img src={post?.imageURL} alt="Post" />
 
             <ImageListItemBar
               sx={{

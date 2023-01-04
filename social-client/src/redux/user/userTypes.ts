@@ -6,6 +6,7 @@ import {
   GET_USER_FAIL,
   GET_USER_REQUEST,
   GET_USER_SUCCESS,
+  RESET_USER_REDUCER,
 } from "./userActionTypes";
 
 export interface USER {
@@ -72,10 +73,15 @@ export interface GetProfileFail {
   payload: GET_PROFILE_FAIL_PAYLOAD;
 }
 
+interface resetUserReducer {
+  type: typeof RESET_USER_REDUCER;
+}
+
 export type userActions =
   | GetUserRequest
   | GetUserSuccess
   | GetUserFail
   | GetProfileRequest
   | GetProfileSuccess
-  | GetProfileFail;
+  | GetProfileFail
+  | resetUserReducer;

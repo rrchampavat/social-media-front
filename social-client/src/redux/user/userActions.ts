@@ -5,6 +5,7 @@ import {
   GET_USER_FAIL,
   GET_USER_REQUEST,
   GET_USER_SUCCESS,
+  RESET_USER_REDUCER,
 } from "./userActionTypes";
 import { USER } from "./userTypes";
 
@@ -45,5 +46,11 @@ export const getProfileFail = (data: any) => {
   return {
     type: GET_PROFILE_FAIL,
     payload: data,
+  };
+};
+
+export const resetUserReducer = () => {
+  return {
+    type: RESET_USER_REDUCER,
   };
 };

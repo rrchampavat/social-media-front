@@ -5,6 +5,7 @@ import {
   GET_USER_POSTS_FAIL,
   GET_USER_POSTS_REQUEST,
   GET_USER_POSTS_SUCCESS,
+  RESET_POST_REDUCER,
 } from "./postActionTypes";
 import { POST_STATE, postActions } from "./postTypes";
 
@@ -29,10 +30,10 @@ const PostReducer = (state = initialState, action: postActions) => {
       return {
         ...state,
         loading: false,
-        posts: action.payload,
+        posts: action.payload.data,
         message: {
           type: messageType.success,
-          text: "Fetched posts successfully",
+          text: action.payload.data,
         },
       };
 
@@ -71,6 +72,9 @@ const PostReducer = (state = initialState, action: postActions) => {
           text: "Error while fetching user posts !",
         },
       };
+
+    case RESET_POST_REDUCER:
+      return initialState;
 
     default:
       return {
