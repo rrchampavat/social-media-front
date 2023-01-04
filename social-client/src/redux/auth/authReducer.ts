@@ -9,6 +9,7 @@ import {
   REGISTER_FAIL,
   REGISTER_REQUEST,
   REGISTER_SUCCESS,
+  RESET_AUTH_REDUCER,
 } from "./authActionTypes";
 import { AUTH_STATE, authActions } from "./authTypes";
 
@@ -92,6 +93,10 @@ const AuthReducer = (state = initialState, action: authActions) => {
         ...state,
         loading: false,
       };
+
+    case RESET_AUTH_REDUCER:
+      return initialState;
+
     default:
       return {
         ...state,

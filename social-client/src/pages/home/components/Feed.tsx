@@ -18,7 +18,7 @@ const Feed = () => {
   useEffect(() => {
     setFeedPosts(posts);
     if (!posts?.length) {
-      dispatch(getPosts(10));
+      dispatch(getPosts());
     }
   }, [posts, dispatch]);
 
@@ -29,11 +29,11 @@ const Feed = () => {
 
   return (
     <Box>
-      {feedPosts?.map((post: POST) => (
-        <Box key={post.postID}>
+      {feedPosts?.map((post: POST, id) => (
+        <Box key={id}>
           <CustomPostCard
-            userName={post.userName}
-            image={post.image}
+            userName={post.user}
+            image={post.imageURL}
             caption={post.caption}
             comments={post.comments}
             userAvatar={post.userAvatar}

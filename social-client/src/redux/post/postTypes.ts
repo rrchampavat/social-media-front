@@ -6,12 +6,13 @@ import {
   GET_USER_POSTS_FAIL,
   GET_USER_POSTS_REQUEST,
   GET_USER_POSTS_SUCCESS,
+  RESET_POST_REDUCER,
 } from "./postActionTypes";
 
 export interface POST {
   postID: string;
-  userName: string;
-  image: string;
+  user: string;
+  imageURL: string;
   caption: string;
   comments: COMMENT[];
   userAvatar: string;
@@ -29,7 +30,8 @@ export interface POST_STATE {
 }
 
 export interface GET_POSTS_SUCCESS_PAYLOAD {
-  posts: POST[];
+  data: POST[];
+  message: string;
 }
 
 export interface GET_POSTS_FAIL_PAYLOAD {
@@ -72,10 +74,15 @@ interface GetUserPostsFail {
   payload: GET_USER_POSTS_FAIL_PAYLOAD;
 }
 
+interface ResetPostReducer {
+  type: typeof RESET_POST_REDUCER;
+}
+
 export type postActions =
   | GetPostsRequest
   | GetPostsSuccess
   | GetPostsFail
   | GetUserPostsRequest
   | GetUserPostsSuccess
-  | GetUserPostsFail;
+  | GetUserPostsFail
+  | ResetPostReducer;

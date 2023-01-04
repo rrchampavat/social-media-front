@@ -4,8 +4,8 @@ import { USER } from "../redux/user/userTypes";
 export const postInitialState: POST = {
   postID: "",
   userAvatar: "",
-  userName: "",
-  image: "",
+  user: "",
+  imageURL: "",
   caption: "",
   comments: [],
   likeCount: 0,

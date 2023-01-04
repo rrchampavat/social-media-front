@@ -1,4 +1,6 @@
-import { put, takeLatest } from "redux-saga/effects";
+import { call, put, StrictEffect, takeLatest } from "redux-saga/effects";
+import { api } from "../../utils/api";
+import { endpoint } from "../../utils/apiEndpoints";
 import { createPosts } from "../../utils/constants";
 import {
   getPostsFail,
@@ -8,10 +10,10 @@ import {
 } from "./postActions";
 import { GET_POSTS_REQUEST, GET_USER_POSTS_REQUEST } from "./postActionTypes";
 
-function* getPosts({ payload }: any) {
+function* getPosts(): Generator<StrictEffect, any> {
   try {
-    const posts = createPosts(payload);
-    yield put(getPostsSuccess(posts));
+    const { data }: any = yield call(api.get, endpoint.getPosts);
+    yield put(getPostsSuccess(data));
   } catch (error: any) {
     yield put(getPostsFail(error));
   }

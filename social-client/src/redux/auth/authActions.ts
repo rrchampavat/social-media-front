@@ -8,6 +8,7 @@ import {
   REGISTER_FAIL,
   REGISTER_REQUEST,
   REGISTER_SUCCESS,
+  RESET_AUTH_REDUCER,
 } from "./authActionTypes";
 import { LOGIN_PAYLOAD, REGISER_DATA } from "./authTypes";
 
@@ -65,8 +66,15 @@ export const logoutSuccess = () => {
     type: LOGOUT_SUCCESS,
   };
 };
+
 export const logoutFail = () => {
   return {
     type: LOGOUT_FAIL,
+  };
+};
+
+export const resetAuthReducer = () => {
+  return {
+    type: RESET_AUTH_REDUCER,
   };
 };

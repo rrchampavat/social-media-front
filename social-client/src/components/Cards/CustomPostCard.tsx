@@ -75,7 +75,7 @@ const CustomPostCard: FC<CustomPostCardProps> = (props) => {
     />
   ) : (
     <Avatar sx={{ width: { xs: 30, md: 40 }, height: { xs: 30, md: 40 } }}>
-      {userName.charAt(0).toUpperCase()}
+      {userName?.charAt(0).toUpperCase()}
     </Avatar>
   );
 
@@ -146,6 +146,7 @@ const CustomPostCard: FC<CustomPostCardProps> = (props) => {
             height: { xs: "31.5vh", md: "auto" },
             width: "inherit",
             bgcolor: appTheme.palette.primary.contrastText,
+            mx: "auto",
           }}
           onClick={handleClick}
         />
@@ -219,7 +220,7 @@ const CustomPostCard: FC<CustomPostCardProps> = (props) => {
           </Typography>
           &nbsp;
           <Typography fontSize={mdView ? 15 : 12} fontWeight={"bold"}>
-            {isLiked ? "You" : comments[0]?.userName}
+            {/* {isLiked ? "You" : comments[0]?.userName}  */}
           </Typography>
           &nbsp;
           <Typography fontSize={mdView ? 15 : 12}>

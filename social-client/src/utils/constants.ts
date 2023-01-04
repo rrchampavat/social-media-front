@@ -127,8 +127,8 @@ export const randomComments = () => {
 export const createPost = () => {
   const post: POST = {
     postID: faker.datatype.uuid(),
-    userName: faker.internet.userName(),
-    image: faker.image.image(),
+    user: faker.internet.userName(),
+    imageURL: faker.image.image(),
     caption: faker.lorem.sentence(),
     comments: randomComments(),
     userAvatar: faker.image.avatar(),
