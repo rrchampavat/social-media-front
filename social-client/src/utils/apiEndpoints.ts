@@ -4,4 +4,5 @@ export const endpoint = {
   register: "/auth/register",
   getProfile: "/users/profile",
   getPosts: "/posts",
+  getFollowingPosts: "/posts/following",
 };

@@ -29,35 +29,27 @@ export interface POST_STATE {
   message: object;
 }
 
-export interface GET_POSTS_SUCCESS_PAYLOAD {
+interface SUCCESS_PAYLOAD {
   data: POST[];
   message: string;
 }
 
-export interface GET_POSTS_FAIL_PAYLOAD {
+interface FAIL_PAYLOAD {
   error: any;
 }
 
-export interface GetPostsRequest {
+interface GetPostsRequest {
   type: typeof GET_POSTS_REQUEST;
 }
 
-export interface GetPostsSuccess {
+interface GetPostsSuccess {
   type: typeof GET_POSTS_SUCCESS;
-  payload: GET_POSTS_SUCCESS_PAYLOAD;
+  payload: SUCCESS_PAYLOAD;
 }
 
-export interface GetPostsFail {
+interface GetPostsFail {
   type: typeof GET_POSTS_FAIL;
-  payload: GET_POSTS_FAIL_PAYLOAD;
-}
-
-interface GET_USER_POSTS_SUCCESS_PAYLOAD {
-  posts: POST[];
-}
-
-interface GET_USER_POSTS_FAIL_PAYLOAD {
-  error: any;
+  payload: FAIL_PAYLOAD;
 }
 
 interface GetUserPostsRequest {
@@ -66,12 +58,12 @@ interface GetUserPostsRequest {
 
 interface GetUserPostsSuccess {
   type: typeof GET_USER_POSTS_SUCCESS;
-  payload: GET_USER_POSTS_SUCCESS_PAYLOAD;
+  payload: SUCCESS_PAYLOAD;
 }
 
 interface GetUserPostsFail {
   type: typeof GET_USER_POSTS_FAIL;
-  payload: GET_USER_POSTS_FAIL_PAYLOAD;
+  payload: FAIL_PAYLOAD;
 }
 
 interface ResetPostReducer {
