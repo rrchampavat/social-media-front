@@ -19,7 +19,7 @@ function* getPosts(): Generator<StrictEffect, any> {
   }
 }
 
-function* getUserPosts({ payload }: any) {
+function* getUserPosts({ payload }: any): Generator<StrictEffect, any> {
   try {
     const posts = createPosts(payload);
     yield put(getUserPostsSuccess(posts));
