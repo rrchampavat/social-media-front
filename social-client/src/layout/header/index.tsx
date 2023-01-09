@@ -20,12 +20,14 @@ import { getProfile } from "../../redux/user/userActions";
 import appTheme from "../../utils/theme";
 import HomeIcon from "@mui/icons-material/Home";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
+import { useSnackbar } from "notistack";
 
 const Header = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { enqueueSnackbar } = useSnackbar();
 
-  const user = useSelector((state: any) => state.UserReducer.user);
+  const { user, message } = useSelector((state: any) => state.UserReducer);
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [openProfileMenu, setOpenProfileMenu] = useState<boolean>(false);
@@ -42,6 +44,14 @@ const Header = () => {
       dispatch(getProfile());
     }
   }, [dispatch, user]);
+
+  useEffect(() => {
+    if (message.type === "error") {
+      enqueueSnackbar(message.text, {
+        variant: message.type,
+      });
+    }
+  }, [enqueueSnackbar, message.text, message.type]);
 
   return (
     <Paper

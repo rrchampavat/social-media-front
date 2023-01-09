@@ -9,6 +9,7 @@ import { store } from "./redux/store";
 import { Box } from "@mui/material";
 import { CookiesProvider } from "react-cookie";
 import { injectStore } from "./utils/api";
+import { SnackbarProvider } from "notistack";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -22,7 +23,17 @@ root.render(
     <BrowserRouter>
       <Provider store={store}>
         <Suspense fallback={<Box>Loading</Box>}>
-          <App />
+          <SnackbarProvider
+            maxSnack={3}
+            autoHideDuration={3000}
+            preventDuplicate
+            anchorOrigin={{
+              vertical: "top",
+              horizontal: "right",
+            }}
+          >
+            <App />
+          </SnackbarProvider>
         </Suspense>
       </Provider>
     </BrowserRouter>

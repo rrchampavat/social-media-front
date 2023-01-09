@@ -19,11 +19,13 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import CameraAltOutlinedIcon from "@mui/icons-material/CameraAltOutlined";
 import { getPosts } from "../../../redux/post/postActions";
+import { useSnackbar } from "notistack";
 
 const PostsList = () => {
   const dispatch = useDispatch();
   const { user } = useSelector((state: any) => state.UserReducer);
-  const { posts } = useSelector((state: any) => state.PostReducer);
+  const { posts, message } = useSelector((state: any) => state.PostReducer);
+  const { enqueueSnackbar } = useSnackbar();
 
   const isMDView = useMediaQuery("(min-width:600px)");
 
@@ -38,6 +40,14 @@ const PostsList = () => {
       dispatch(getPosts());
     }
   }, [posts, dispatch, user]);
+
+  useEffect(() => {
+    if (message.type === "error") {
+      enqueueSnackbar(message.text, {
+        variant: message.type,
+      });
+    }
+  }, [enqueueSnackbar, message.text, message.type]);
 
   const handleClick = (post: POST) => {
     setOpenDialog(true);

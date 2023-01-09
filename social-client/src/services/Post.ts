@@ -7,6 +7,6 @@ export const getFollowingUserPosts = async () => {
 
     return response.data;
   } catch (error: any) {
-    throw Error(error.message);
+    throw Error("Could not fetch posts !");
   }
 };
