@@ -10,3 +10,13 @@ export const getUserFollowers = async () => {
     throw Error("Could not fetch followers !");
   }
 };
+
+export const getUserFollowing = async () => {
+  try {
+    const response = await api.get(endpoint.getUserFollowing);
+
+    return response.data;
+  } catch (error) {
+    throw new Error("Could not fetch following");
+  }
+};

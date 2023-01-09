@@ -6,4 +6,5 @@ export const endpoint = {
   getPosts: "/posts",
   getFollowingPosts: "/posts/following",
   getUserFollowers: "/relations/followers",
+  getUserFollowing: "relations/following",
 };
