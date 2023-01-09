@@ -23,7 +23,6 @@ import { useSnackbar } from "notistack";
 
 const PostsList = () => {
   const dispatch = useDispatch();
-  const { user } = useSelector((state: any) => state.UserReducer);
   const { posts, message } = useSelector((state: any) => state.PostReducer);
   const { enqueueSnackbar } = useSnackbar();
 
@@ -39,7 +38,7 @@ const PostsList = () => {
     if (!posts?.length) {
       dispatch(getPosts());
     }
-  }, [posts, dispatch, user]);
+  }, [posts, dispatch]);
 
   useEffect(() => {
     if (message.type === "error") {
@@ -58,7 +57,7 @@ const PostsList = () => {
     <>
       <Tabs
         onChange={(_e: SyntheticEvent, value) => setActiveTab(value)}
-        // @ts-ignore
+        // @ts-expect-error
         textColor={appTheme.palette.primary.dark}
         indicatorColor="primary"
         value={activeTab}

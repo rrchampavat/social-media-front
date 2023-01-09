@@ -16,7 +16,10 @@ import UsersListDialog, {
   FollowersProps,
 } from "../../../components/DialogBox/UsersListDialog";
 import { useNavigate } from "react-router-dom";
-import { getUserFollowers } from "../../../services/Relations";
+import {
+  getUserFollowers,
+  getUserFollowing,
+} from "../../../services/Relations";
 import { useSnackbar } from "notistack";
 
 const ProfileDetails = () => {
@@ -39,6 +42,20 @@ const ProfileDetails = () => {
         setUserList(response.data);
       })
       .catch((error: any) =>
+        enqueueSnackbar(error.message, {
+          variant: "error",
+        })
+      );
+  };
+
+  const getFollowing = () => {
+    getUserFollowing()
+      .then((response) => {
+        setOpenDialog(true);
+        setHeader("Following");
+        setUserList(response.data);
+      })
+      .catch((error) =>
         enqueueSnackbar(error.message, {
           variant: "error",
         })
@@ -147,6 +164,7 @@ const ProfileDetails = () => {
             variant="button"
             sx={{ cursor: "pointer" }}
             fontSize={isMDView ? 15 : 12}
+            onClick={getFollowing}
           >
             {user.followingCount} Following
           </Typography>
