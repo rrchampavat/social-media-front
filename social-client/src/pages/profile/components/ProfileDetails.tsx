@@ -12,30 +12,38 @@ import { flexMiddle } from "../../../assets/commonStyles";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import { useSelector } from "react-redux";
 import appTheme from "../../../utils/theme";
-import UsersListDialog from "../../../components/DialogBox/UsersListDialog";
-import { createUsers } from "../../../utils/constants";
-import { faker } from "@faker-js/faker";
-import { USER } from "../../../redux/user/userTypes";
+import UsersListDialog, {
+  FollowersProps,
+} from "../../../components/DialogBox/UsersListDialog";
 import { useNavigate } from "react-router-dom";
-
-const users = createUsers(20);
+import { getUserFollowers } from "../../../services/Relations";
+import { useSnackbar } from "notistack";
 
 const ProfileDetails = () => {
   const navigate = useNavigate();
+  const { enqueueSnackbar } = useSnackbar();
 
   const { user } = useSelector((state: any) => state.UserReducer);
 
   const [header, setHeader] = useState<string>("");
-  const [userList, setUserList] = useState<Array<USER>>([]);
+  const [userList, setUserList] = useState<Array<FollowersProps>>([]);
   const [openDialog, setOpenDialog] = useState<boolean>(false);
 
-  const handleOpenDialog = (type: string): void => {
-    setOpenDialog(true);
-    setHeader(type);
-    setUserList(users?.map((user) => ({ ...user, userType: type })));
-  };
-
   const isMDView = useMediaQuery("(min-width:600px)");
+
+  const getFollowers = () => {
+    getUserFollowers()
+      .then((response) => {
+        setOpenDialog(true);
+        setHeader("Follower");
+        setUserList(response.data);
+      })
+      .catch((error: any) =>
+        enqueueSnackbar(error.message, {
+          variant: "error",
+        })
+      );
+  };
 
   return (
     <Grid container direction={"row"}>
@@ -129,9 +137,9 @@ const ProfileDetails = () => {
             variant="button"
             fontSize={isMDView ? 15 : 12}
             sx={{ cursor: "pointer" }}
-            onClick={() => handleOpenDialog("Follower")}
+            onClick={getFollowers}
           >
-            {user.followerCount} Followers
+            {user.followersCount} Followers
           </Typography>
 
           <Typography
@@ -139,7 +147,6 @@ const ProfileDetails = () => {
             variant="button"
             sx={{ cursor: "pointer" }}
             fontSize={isMDView ? 15 : 12}
-            onClick={() => handleOpenDialog("Following")}
           >
             {user.followingCount} Following
           </Typography>
@@ -155,13 +162,7 @@ const ProfileDetails = () => {
 
       <UsersListDialog
         open={openDialog}
-        data={userList?.map((user: any) => ({
-          userId: user?.userId,
-          avatar: user?.avatar,
-          username: user?.username,
-          following: faker.datatype.boolean(),
-          userType: user?.userType,
-        }))}
+        data={userList}
         handleClose={() => setOpenDialog(false)}
         title={header}
       />
