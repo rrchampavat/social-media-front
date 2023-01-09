@@ -6,8 +6,11 @@ import { POST } from "../../../redux/post/postTypes";
 import { postInitialState } from "../../../utils/initialStates";
 
 import { getFollowingUserPosts } from "../../../services/Post";
+import { useSnackbar } from "notistack";
 
 const Feed = () => {
+  const { enqueueSnackbar } = useSnackbar();
+
   const [feedPosts, setFeedPosts] = useState<Array<POST>>([]);
   const [openDialog, setOpenDialog] = useState<boolean>(false);
   const [selectedPost, setSelectedPost] = useState<POST>(postInitialState);
@@ -17,8 +20,12 @@ const Feed = () => {
       .then((res) => {
         setFeedPosts(res.data);
       })
-      .catch((error: any) => console.log(error));
-  }, []);
+      .catch((error: any) => {
+        enqueueSnackbar(error.message, {
+          variant: "error",
+        });
+      });
+  }, [enqueueSnackbar]);
 
   const handleClick = (post: POST): void => {
     setOpenDialog(true);
