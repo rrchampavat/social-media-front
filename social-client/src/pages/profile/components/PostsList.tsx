@@ -62,7 +62,7 @@ const PostsList = () => {
         indicatorColor="primary"
         value={activeTab}
       >
-        <Tab label={`Posts (${posts?.length})`} value="Posts" />
+        <Tab label={`Posts - (${posts?.length})`} value="Posts" />
         <Tab label={`Tagged (${posts?.length})`} value="Tagged" />
         <Tab label={`Saved (${posts?.length})`} value="Saved" />
       </Tabs>
